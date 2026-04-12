@@ -1,11 +1,16 @@
 // Styles (exported as dist/style.css)
 import './lib/styles/base.scss';
 import './lib/components/AppShell/AppShell.scss';
+import './lib/components/Panel/Panel.scss';
 
 // Components
 export { default as AppShell } from './lib/components/AppShell/AppShell';
 export type { NavItem, AppShellProps } from './lib/components/AppShell/AppShell';
+export { default as Badge } from './lib/components/Badge/Badge';
+export type { BadgeProps, BadgeVariant } from './lib/components/Badge/Badge';
 export { default as ConfirmDialog } from './lib/components/ConfirmDialog/ConfirmDialog';
+export { default as Panel } from './lib/components/Panel/Panel';
+export type { PanelProps } from './lib/components/Panel/Panel';
 export { default as Spinner } from './lib/components/Spinner/Spinner';
 export { default as Toast } from './lib/components/Toast/Toast';
 
