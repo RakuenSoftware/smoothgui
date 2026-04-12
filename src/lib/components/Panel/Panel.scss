@@ -1,0 +1,38 @@
+.sg-panel {
+  display: flex;
+  flex-direction: column;
+  border: 1px solid #e0e0e0;
+  border-radius: 6px;
+  overflow: hidden;
+  background: #fff;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.06);
+}
+
+.sg-panel-header {
+  background: #fafafa;
+  padding: 6px 12px;
+  font-size: 13px;
+  font-weight: 600;
+  color: #555;
+  border-bottom: 1px solid #e0e0e0;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-shrink: 0;
+}
+
+.sg-panel-title {
+  flex: 1;
+}
+
+.sg-panel-count {
+  font-size: 11px;
+  color: #aaa;
+  font-weight: normal;
+}
+
+.sg-panel-body {
+  flex: 1;
+  overflow-y: auto;
+  min-height: 0;
+}
