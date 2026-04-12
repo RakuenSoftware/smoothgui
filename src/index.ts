@@ -27,3 +27,7 @@ export type { GetJobStatus } from './lib/utils/poll';
 
 // API
 export { apiFetch, apiFetchForm } from './lib/api/fetch';
+
+// Design tokens (for inline styles)
+export { tokens } from './lib/tokens';
+export type { Tokens } from './lib/tokens';

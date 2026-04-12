@@ -6,8 +6,8 @@
 
 .sidebar {
   width: 240px;
-  background: #1a1a2e;
-  color: #e0e0e0;
+  background: var(--sg-sidebar-bg);
+  color: var(--sg-sidebar-text);
   display: flex;
   flex-direction: column;
   transition: width 0.2s ease;
@@ -24,32 +24,32 @@
   align-items: center;
   justify-content: space-between;
   padding: 16px 12px;
-  border-bottom: 1px solid #2a2a4a;
+  border-bottom: 1px solid var(--sg-border-sidebar);
   min-height: 56px;
 }
 
 .logo {
   font-size: 18px;
   font-weight: 700;
-  color: #4fc3f7;
+  color: var(--sg-primary);
   white-space: nowrap;
 }
 
 .logo-short {
   font-size: 18px;
   font-weight: 700;
-  color: #4fc3f7;
+  color: var(--sg-primary);
 }
 
 .toggle-btn {
   background: none;
   border: none;
-  color: #888;
+  color: var(--sg-text-faint);
   cursor: pointer;
   font-size: 12px;
   padding: 4px;
 
-  &:hover { color: #fff; }
+  &:hover { color: var(--sg-surface); }
 }
 
 .nav-sections {
@@ -64,7 +64,7 @@
 .section-label {
   font-size: 11px;
   text-transform: uppercase;
-  color: #666;
+  color: var(--sg-text-secondary);
   padding: 8px 16px 4px;
   letter-spacing: 0.5px;
 }
@@ -73,22 +73,22 @@
   display: flex;
   align-items: center;
   padding: 8px 16px;
-  color: #b0b0b0;
+  color: var(--sg-text-nav);
   text-decoration: none;
   transition: background 0.15s, color 0.15s;
   white-space: nowrap;
   font-size: 14px;
 
   &:hover {
-    background: #2a2a4a;
-    color: #fff;
+    background: var(--sg-sidebar-hover);
+    color: var(--sg-surface);
     text-decoration: none;
   }
 
   &.active {
-    background: #2a2a4a;
-    color: #4fc3f7;
-    border-right: 3px solid #4fc3f7;
+    background: var(--sg-sidebar-hover);
+    color: var(--sg-primary);
+    border-right: 3px solid var(--sg-primary);
   }
 
   .collapsed & {
@@ -117,8 +117,8 @@
 
 .top-bar {
   height: 48px;
-  background: #fff;
-  border-bottom: 1px solid #e0e0e0;
+  background: var(--sg-surface);
+  border-bottom: 1px solid var(--sg-border);
   display: flex;
   align-items: center;
   padding: 0 16px;
@@ -136,6 +136,6 @@
 .content {
   flex: 1;
   overflow-y: auto;
-  background: #f5f5f5;
+  background: var(--sg-bg);
   padding: 24px;
 }
