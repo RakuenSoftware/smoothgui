@@ -11,7 +11,7 @@
       "import": "./dist/smoothgui.js",
       "types": "./dist/index.d.ts"
     },
-    "./styles": "./dist/style.css"
+    "./styles": "./dist/smoothgui.css"
   },
   "files": [
     "dist"
