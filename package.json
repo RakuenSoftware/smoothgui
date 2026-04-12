@@ -1,6 +1,6 @@
 {
   "name": "@rakuensoftware/smoothgui",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Shared UI component library for Rakuen Software products",
   "type": "module",
   "main": "./dist/smoothgui.js",
@@ -11,7 +11,7 @@
       "import": "./dist/smoothgui.js",
       "types": "./dist/index.d.ts"
     },
-    "./styles": "./dist/style.css"
+    "./styles": "./dist/smoothgui.css"
   },
   "files": [
     "dist"
