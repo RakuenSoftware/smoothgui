@@ -2,6 +2,7 @@
 import './lib/styles/base.scss';
 import './lib/components/AppShell/AppShell.scss';
 import './lib/components/Panel/Panel.scss';
+import './lib/components/LoginPage/LoginPage.scss';
 
 // Components
 export { default as AppShell } from './lib/components/AppShell/AppShell';
@@ -13,6 +14,8 @@ export { default as Panel } from './lib/components/Panel/Panel';
 export type { PanelProps } from './lib/components/Panel/Panel';
 export { default as Spinner } from './lib/components/Spinner/Spinner';
 export { default as Toast } from './lib/components/Toast/Toast';
+export { default as LoginPage } from './lib/components/LoginPage/LoginPage';
+export type { LoginPageProps } from './lib/components/LoginPage/LoginPage';
 
 // Contexts
 export { AuthProvider, useAuth } from './lib/contexts/AuthContext';
