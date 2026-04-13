@@ -3,6 +3,8 @@ import './lib/styles/base.scss';
 import './lib/components/AppShell/AppShell.scss';
 import './lib/components/Panel/Panel.scss';
 import './lib/components/LoginPage/LoginPage.scss';
+import './lib/components/AlertsButton/AlertsButton.scss';
+import './lib/components/UserDropdown/UserDropdown.scss';
 
 // Components
 export { default as AppShell } from './lib/components/AppShell/AppShell';
@@ -16,6 +18,10 @@ export { default as Spinner } from './lib/components/Spinner/Spinner';
 export { default as Toast } from './lib/components/Toast/Toast';
 export { default as LoginPage } from './lib/components/LoginPage/LoginPage';
 export type { LoginPageProps } from './lib/components/LoginPage/LoginPage';
+export { default as AlertsButton } from './lib/components/AlertsButton/AlertsButton';
+export type { AlertsButtonProps, Alert } from './lib/components/AlertsButton/AlertsButton';
+export { default as UserDropdown } from './lib/components/UserDropdown/UserDropdown';
+export type { UserDropdownProps, UserMenuItem, UserMenuDivider, UserMenuEntry } from './lib/components/UserDropdown/UserDropdown';
 
 // Contexts
 export { AuthProvider, useAuth } from './lib/contexts/AuthContext';
