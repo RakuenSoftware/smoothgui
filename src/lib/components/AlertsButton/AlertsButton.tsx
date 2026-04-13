@@ -65,7 +65,7 @@ export default function AlertsButton({
   }
 
   return (
-    <>
+    <div className="sg-alerts-wrapper">
       <button
         className={`sg-icon-btn sg-alerts-btn${alertCount > 0 ? ' has-alerts' : ''}`}
         onClick={toggle}
@@ -96,6 +96,6 @@ export default function AlertsButton({
           </div>
         </div>
       )}
-    </>
+    </div>
   );
 }

@@ -1,3 +1,7 @@
+.sg-alerts-wrapper {
+  position: relative;
+}
+
 .sg-icon-btn {
   background: none;
   border: none;
@@ -41,8 +45,15 @@
 }
 
 .sg-alerts-panel {
+  position: absolute;
+  top: 100%;
+  right: 0;
+  z-index: 1000;
+  width: 400px;
   background: #fff;
-  border-bottom: 1px solid #e0e0e0;
+  border: 1px solid #e0e0e0;
+  border-radius: 4px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.12);
   max-height: 400px;
   overflow-y: auto;
 
