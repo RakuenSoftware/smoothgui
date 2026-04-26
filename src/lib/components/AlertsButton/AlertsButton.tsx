@@ -1,4 +1,5 @@
 import { useState, useEffect, useRef } from 'react';
+import { useI18n } from '../../contexts/I18nContext';
 import './AlertsButton.scss';
 
 export interface Alert {
@@ -31,6 +32,7 @@ export default function AlertsButton({
   const [alertCount, setAlertCount] = useState(0);
   const [alerts, setAlerts] = useState<Alert[]>([]);
   const pollRef = useRef<ReturnType<typeof setInterval> | null>(null);
+  const { t } = useI18n();
 
   useEffect(() => {
     pollAlerts();
@@ -69,7 +71,7 @@ export default function AlertsButton({
       <button
         className={`sg-icon-btn sg-alerts-btn${alertCount > 0 ? ' has-alerts' : ''}`}
         onClick={toggle}
-        title="Alerts"
+        title={t('alerts.buttonTitle')}
       >
         <span className="sg-bell-icon">{'\u{1F514}'}</span>
         {alertCount > 0 && <span className="sg-alert-badge">{alertCount}</span>}
@@ -78,11 +80,11 @@ export default function AlertsButton({
       {showAlerts && (
         <div className="sg-alerts-panel">
           <div className="sg-alerts-header">
-            <h3>Alerts</h3>
-            <button className="btn secondary" onClick={() => { setShowAlerts(false); onClose?.(); }}>Close</button>
+            <h3>{t('alerts.title')}</h3>
+            <button className="btn secondary" onClick={() => { setShowAlerts(false); onClose?.(); }}>{t('alerts.close')}</button>
           </div>
           <div className="sg-alerts-list">
-            {alerts.length === 0 && <div className="empty-state">No active alerts.</div>}
+            {alerts.length === 0 && <div className="empty-state">{t('alerts.empty')}</div>}
             {alerts.map(alert => (
               <div key={alert.id} className={`sg-alert-item ${alert.severity}`}>
                 <div className="sg-alert-severity">{alert.severity}</div>
@@ -90,7 +92,7 @@ export default function AlertsButton({
                   <div className="sg-alert-message">{alert.message}</div>
                   <div className="sg-alert-meta">{alert.source} / {alert.device} / {alert.timestamp}</div>
                 </div>
-                <button className="btn secondary" onClick={() => dismiss(alert.id)}>Dismiss</button>
+                <button className="btn secondary" onClick={() => dismiss(alert.id)}>{t('alerts.dismiss')}</button>
               </div>
             ))}
           </div>

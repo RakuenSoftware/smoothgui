@@ -12,6 +12,7 @@ export type { NavItem, AppShellProps } from './lib/components/AppShell/AppShell'
 export { default as Badge } from './lib/components/Badge/Badge';
 export type { BadgeProps, BadgeVariant } from './lib/components/Badge/Badge';
 export { default as ConfirmDialog } from './lib/components/ConfirmDialog/ConfirmDialog';
+export type { ConfirmDialogProps } from './lib/components/ConfirmDialog/ConfirmDialog';
 export { default as Panel } from './lib/components/Panel/Panel';
 export type { PanelProps } from './lib/components/Panel/Panel';
 export { default as Spinner } from './lib/components/Spinner/Spinner';
@@ -26,6 +27,16 @@ export type { UserDropdownProps, UserMenuItem, UserMenuDivider, UserMenuEntry } 
 // Contexts
 export { AuthProvider, useAuth } from './lib/contexts/AuthContext';
 export type { AuthContextValue } from './lib/contexts/AuthContext';
+export { I18nProvider, useI18n, englishTranslations } from './lib/contexts/I18nContext';
+export type {
+  I18nContextValue,
+  I18nProviderProps,
+  LanguageTranslations,
+  SmoothGuiTranslationKey,
+  TranslationCatalog,
+  TranslationKey,
+  TranslationValues,
+} from './lib/contexts/I18nContext';
 export { ToastProvider, useToast } from './lib/contexts/ToastContext';
 export type { Toast as ToastItem } from './lib/contexts/ToastContext';
 

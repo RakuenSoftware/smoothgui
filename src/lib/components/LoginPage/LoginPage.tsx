@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../../contexts/AuthContext';
+import { useI18n } from '../../contexts/I18nContext';
 import { extractError } from '../../utils/errors';
 import './LoginPage.scss';
 
@@ -16,6 +17,7 @@ export default function LoginPage({
   redirectTo = '/dashboard',
 }: LoginPageProps) {
   const { login } = useAuth();
+  const { t } = useI18n();
   const navigate = useNavigate();
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
@@ -30,7 +32,7 @@ export default function LoginPage({
       await login(username, password);
       navigate(redirectTo);
     } catch (err) {
-      setError(extractError(err, 'Login failed'));
+      setError(extractError(err, t('login.failed')));
     } finally {
       setLoading(false);
     }
@@ -43,7 +45,7 @@ export default function LoginPage({
         {subtitle && <p className="sg-login-subtitle">{subtitle}</p>}
         <form onSubmit={onSubmit}>
           <div className="sg-login-field">
-            <label htmlFor="sg-username">Username</label>
+            <label htmlFor="sg-username">{t('login.username')}</label>
             <input
               id="sg-username"
               type="text"
@@ -55,7 +57,7 @@ export default function LoginPage({
             />
           </div>
           <div className="sg-login-field">
-            <label htmlFor="sg-password">Password</label>
+            <label htmlFor="sg-password">{t('login.password')}</label>
             <input
               id="sg-password"
               type="password"
@@ -67,7 +69,7 @@ export default function LoginPage({
           </div>
           {error && <div className="sg-login-error">{error}</div>}
           <button type="submit" disabled={loading || !username || !password}>
-            {loading ? 'Signing in...' : 'Sign In'}
+            {loading ? t('login.signingIn') : t('login.signIn')}
           </button>
         </form>
       </div>

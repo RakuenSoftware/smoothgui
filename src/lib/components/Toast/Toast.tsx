@@ -1,7 +1,9 @@
+import { useI18n } from '../../contexts/I18nContext';
 import { useToast } from '../../contexts/ToastContext';
 
 export default function Toast() {
   const { toasts, dismiss } = useToast();
+  const { t } = useI18n();
 
   if (toasts.length === 0) return null;
 
@@ -18,7 +20,13 @@ export default function Toast() {
         <div key={toast.id} className={`toast ${toast.type}`} onClick={() => dismiss(toast.id)}>
           <span className="toast-icon">{icon(toast.type)}</span>
           <span className="toast-message">{toast.message}</span>
-          <button className="toast-close" onClick={e => { e.stopPropagation(); dismiss(toast.id); }}>&times;</button>
+          <button
+            className="toast-close"
+            aria-label={t('toast.close')}
+            onClick={e => { e.stopPropagation(); dismiss(toast.id); }}
+          >
+            &times;
+          </button>
         </div>
       ))}
       <style>{`

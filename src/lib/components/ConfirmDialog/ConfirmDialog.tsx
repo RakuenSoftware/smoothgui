@@ -1,4 +1,6 @@
-interface Props {
+import { useI18n } from '../../contexts/I18nContext';
+
+export interface ConfirmDialogProps {
   visible: boolean;
   title?: string;
   message?: string;
@@ -9,19 +11,21 @@ interface Props {
 }
 
 export default function ConfirmDialog({
-  visible, title = 'Confirm', message = 'Are you sure?',
-  confirmText = 'Confirm', confirmClass = 'btn danger',
+  visible, title, message,
+  confirmText, confirmClass = 'btn danger',
   onConfirm, onCancel,
-}: Props) {
+}: ConfirmDialogProps) {
+  const { t } = useI18n();
+
   if (!visible) return null;
   return (
     <div className="cd-overlay" onClick={onCancel}>
       <div className="cd-dialog" onClick={e => e.stopPropagation()}>
-        <h3>{title}</h3>
-        <p>{message}</p>
+        <h3>{title ?? t('confirm.title')}</h3>
+        <p>{message ?? t('confirm.message')}</p>
         <div className="cd-actions">
-          <button className="btn secondary" onClick={onCancel}>Cancel</button>
-          <button className={confirmClass} onClick={onConfirm}>{confirmText}</button>
+          <button className="btn secondary" onClick={onCancel}>{t('confirm.cancel')}</button>
+          <button className={confirmClass} onClick={onConfirm}>{confirmText ?? t('confirm.confirm')}</button>
         </div>
       </div>
       <style>{`

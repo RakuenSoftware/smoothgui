@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { useI18n } from '../../contexts/I18nContext';
 import './UserDropdown.scss';
 
 export interface UserMenuItem {
@@ -31,6 +32,7 @@ export default function UserDropdown({
   onClose,
 }: UserDropdownProps) {
   const [showMenu, setShowMenu] = useState(false);
+  const { t } = useI18n();
 
   function toggle() {
     const next = !showMenu;
@@ -48,7 +50,7 @@ export default function UserDropdown({
       <button
         className="sg-icon-btn sg-user-btn"
         onClick={toggle}
-        title="Account"
+        title={t('userDropdown.account')}
       >
         <span className="sg-user-icon">{'\u{1F464}'}</span>
         <span className="sg-user-name">{username}</span>
@@ -56,7 +58,7 @@ export default function UserDropdown({
 
       {showMenu && (
         <div className="sg-user-dropdown">
-          <div className="sg-dropdown-header">Signed in as <strong>{username}</strong></div>
+          <div className="sg-dropdown-header">{t('userDropdown.signedInAs')} <strong>{username}</strong></div>
           {menuItems.map((entry, i) => {
             if (isDivider(entry)) {
               return <div key={`d-${i}`} className="sg-dropdown-divider" />;
