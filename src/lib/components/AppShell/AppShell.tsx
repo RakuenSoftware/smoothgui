@@ -1,5 +1,6 @@
 import { ReactNode, useState } from 'react';
 import { NavLink } from 'react-router-dom';
+import { useI18n } from '../../contexts/I18nContext';
 import './AppShell.scss';
 
 export interface NavItem {
@@ -27,6 +28,7 @@ export default function AppShell({
   children,
 }: AppShellProps) {
   const [collapsed, setCollapsed] = useState(false);
+  const { t } = useI18n();
   const sections = [...new Set(navItems.map(i => i.section))];
 
   return (
@@ -38,7 +40,7 @@ export default function AppShell({
           <button
             className="toggle-btn"
             onClick={() => setCollapsed(v => !v)}
-            aria-label="Toggle sidebar"
+            aria-label={t('appShell.toggleSidebar')}
           >
             {collapsed ? '▶' : '◀'}
           </button>
