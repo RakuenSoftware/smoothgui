@@ -75,7 +75,7 @@ func (h *Handler) Login(w http.ResponseWriter, r *http.Request) {
 	}
 
 	if req.Username == "" || req.Password == "" {
-		http.Error(w, `{"error":"username and password required"}`, http.StatusBadRequest)
+		writeJSONErrorCoded(w, "username and password required", http.StatusBadRequest, "auth.credentials_required")
 		return
 	}
 
@@ -169,12 +169,12 @@ func (h *Handler) ChangePassword(w http.ResponseWriter, r *http.Request) {
 	}
 
 	if req.CurrentPassword == "" || req.NewPassword == "" {
-		http.Error(w, `{"error":"current_password and new_password required"}`, http.StatusBadRequest)
+		writeJSONErrorCoded(w, "current_password and new_password required", http.StatusBadRequest, "auth.password_fields_required")
 		return
 	}
 
 	if len(req.NewPassword) < 8 {
-		http.Error(w, `{"error":"new password must be at least 8 characters"}`, http.StatusBadRequest)
+		writeJSONErrorCoded(w, "new password must be at least 8 characters", http.StatusBadRequest, "auth.new_password_too_short")
 		return
 	}
 
@@ -234,17 +234,17 @@ func (h *Handler) CreateUser(w http.ResponseWriter, r *http.Request) {
 	}
 
 	if req.Username == "" || req.Password == "" {
-		http.Error(w, `{"error":"username and password required"}`, http.StatusBadRequest)
+		writeJSONErrorCoded(w, "username and password required", http.StatusBadRequest, "users.credentials_required")
 		return
 	}
 
 	if len(req.Password) < 8 {
-		http.Error(w, `{"error":"password must be at least 8 characters"}`, http.StatusBadRequest)
+		writeJSONErrorCoded(w, "password must be at least 8 characters", http.StatusBadRequest, "users.password_too_short")
 		return
 	}
 
 	if UserExists(req.Username) {
-		http.Error(w, `{"error":"username already exists"}`, http.StatusConflict)
+		writeJSONErrorCoded(w, "username already exists", http.StatusConflict, "users.username_taken")
 		return
 	}
 
@@ -275,18 +275,18 @@ func (h *Handler) DeleteUser(w http.ResponseWriter, r *http.Request, usersPrefix
 
 	targetUsername := strings.TrimPrefix(r.URL.Path, usersPrefix)
 	if targetUsername == "" {
-		http.Error(w, `{"error":"username required"}`, http.StatusBadRequest)
+		writeJSONErrorCoded(w, "username required", http.StatusBadRequest, "users.username_required")
 		return
 	}
 
 	callerUsername := GetUsername(r)
 	if callerUsername == targetUsername {
-		http.Error(w, `{"error":"cannot delete your own account"}`, http.StatusBadRequest)
+		writeJSONErrorCoded(w, "cannot delete your own account", http.StatusBadRequest, "users.cannot_delete_self")
 		return
 	}
 
 	if !UserExists(targetUsername) {
-		http.Error(w, `{"error":"user not found"}`, http.StatusNotFound)
+		writeJSONErrorCoded(w, "user not found", http.StatusNotFound, "users.not_found")
 		return
 	}
 
