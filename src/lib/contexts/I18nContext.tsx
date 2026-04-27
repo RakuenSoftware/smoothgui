@@ -21,6 +21,34 @@ export const englishTranslations = {
   'userDropdown.signedInAs': 'Signed in as',
 } as const;
 
+// Dutch (nl) translations of every key in englishTranslations.
+// Consumers shipping a Dutch UI can spread this into their nl
+// catalog instead of overriding chrome strings per-app.
+//
+// Adding a new chrome key to englishTranslations must add the
+// corresponding key here. The TS shape (Record<SmoothGuiTranslationKey, string>)
+// enforces parity at build time.
+export const dutchTranslations: Record<SmoothGuiTranslationKey, string> = {
+  'appShell.toggleSidebar': 'Zijbalk wisselen',
+  'alerts.title': 'Meldingen',
+  'alerts.close': 'Sluiten',
+  'alerts.empty': 'Geen actieve meldingen.',
+  'alerts.dismiss': 'Negeren',
+  'alerts.buttonTitle': 'Meldingen',
+  'confirm.title': 'Bevestigen',
+  'confirm.message': 'Weet u het zeker?',
+  'confirm.confirm': 'Bevestigen',
+  'confirm.cancel': 'Annuleren',
+  'login.username': 'Gebruikersnaam',
+  'login.password': 'Wachtwoord',
+  'login.failed': 'Aanmelden mislukt',
+  'login.signingIn': 'Aanmelden...',
+  'login.signIn': 'Aanmelden',
+  'toast.close': 'Melding sluiten',
+  'userDropdown.account': 'Account',
+  'userDropdown.signedInAs': 'Aangemeld als',
+};
+
 export type SmoothGuiTranslationKey = keyof typeof englishTranslations;
 export type TranslationKey = SmoothGuiTranslationKey | (string & {});
 export type TranslationValues = Record<string, string | number>;
