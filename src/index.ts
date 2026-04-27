@@ -41,7 +41,7 @@ export { ToastProvider, useToast } from './lib/contexts/ToastContext';
 export type { Toast as ToastItem } from './lib/contexts/ToastContext';
 
 // Utils
-export { extractError } from './lib/utils/errors';
+export { extractError, useExtractError } from './lib/utils/errors';
 export { pollJob } from './lib/utils/poll';
 export type { GetJobStatus } from './lib/utils/poll';
 

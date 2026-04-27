@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../../contexts/AuthContext';
 import { useI18n } from '../../contexts/I18nContext';
-import { extractError } from '../../utils/errors';
+import { useExtractError } from '../../utils/errors';
 import './LoginPage.scss';
 
 export interface LoginPageProps {
@@ -18,6 +18,7 @@ export default function LoginPage({
 }: LoginPageProps) {
   const { login } = useAuth();
   const { t } = useI18n();
+  const extractError = useExtractError();
   const navigate = useNavigate();
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
