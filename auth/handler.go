@@ -17,6 +17,22 @@ type Handler struct {
 	users      *UserManager
 }
 
+// writeJSONErrorCoded writes a JSON error body containing both an
+// `error` (English fallback) and a stable `code` field. Frontends
+// using SmoothGUI's useExtractError look the code up under
+// `error.<code>` in the active i18n catalog so the user sees a
+// localised message; consumers that don't translate keep seeing
+// the English text.
+//
+// Codes are dotted lowercase identifiers grouped by surface
+// ("auth.invalid_credentials", "auth.session_expired") so they
+// remain stable when the human-readable message gets reworded.
+func writeJSONErrorCoded(w http.ResponseWriter, message string, status int, code string) {
+	w.Header().Set("Content-Type", "application/json")
+	w.WriteHeader(status)
+	json.NewEncoder(w).Encode(map[string]string{"error": message, "code": code})
+}
+
 // NewHandler creates an auth handler with the given dependencies.
 func NewHandler(pamService string, sessions *SessionStore, rateLimiter *RateLimiter, users *UserManager) *Handler {
 	return &Handler{
@@ -48,8 +64,7 @@ func (h *Handler) Login(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 	if limited {
-		w.WriteHeader(http.StatusTooManyRequests)
-		fmt.Fprintf(w, `{"error":"too many login attempts, try again later"}`)
+		writeJSONErrorCoded(w, "too many login attempts, try again later", http.StatusTooManyRequests, "auth.rate_limited")
 		return
 	}
 
@@ -69,7 +84,7 @@ func (h *Handler) Login(w http.ResponseWriter, r *http.Request) {
 		if errors.Is(err, ErrAuthUnavailable) {
 			fmt.Printf("auth: PAM unavailable: %v\n", err)
 		}
-		http.Error(w, `{"error":"invalid credentials"}`, http.StatusUnauthorized)
+		writeJSONErrorCoded(w, "invalid credentials", http.StatusUnauthorized, "auth.invalid_credentials")
 		return
 	}
 
@@ -143,7 +158,7 @@ func (h *Handler) ChangePassword(w http.ResponseWriter, r *http.Request) {
 
 	username := GetUsername(r)
 	if username == "" {
-		http.Error(w, `{"error":"authentication required"}`, http.StatusUnauthorized)
+		writeJSONErrorCoded(w, "authentication required", http.StatusUnauthorized, "auth.required")
 		return
 	}
 
@@ -164,7 +179,7 @@ func (h *Handler) ChangePassword(w http.ResponseWriter, r *http.Request) {
 	}
 
 	if err := PAMAuthenticate(h.pamService, username, req.CurrentPassword); err != nil {
-		http.Error(w, `{"error":"current password is incorrect"}`, http.StatusUnauthorized)
+		writeJSONErrorCoded(w, "current password is incorrect", http.StatusUnauthorized, "auth.current_password_incorrect")
 		return
 	}
 
