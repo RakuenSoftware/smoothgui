@@ -27,7 +27,7 @@ export type { UserDropdownProps, UserMenuItem, UserMenuDivider, UserMenuEntry } 
 // Contexts
 export { AuthProvider, useAuth } from './lib/contexts/AuthContext';
 export type { AuthContextValue } from './lib/contexts/AuthContext';
-export { I18nProvider, useI18n, englishTranslations } from './lib/contexts/I18nContext';
+export { I18nProvider, useI18n, englishTranslations, dutchTranslations } from './lib/contexts/I18nContext';
 export type {
   I18nContextValue,
   I18nProviderProps,
@@ -47,6 +47,7 @@ export type { GetJobStatus } from './lib/utils/poll';
 
 // API
 export { apiFetch, apiFetchForm } from './lib/api/fetch';
+export { ApiError, isApiError } from './lib/api/error';
 
 // Design tokens (for inline styles)
 export { tokens } from './lib/tokens';
