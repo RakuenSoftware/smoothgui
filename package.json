@@ -18,7 +18,8 @@
   ],
   "scripts": {
     "dev": "vite",
-    "build": "tsc -b && vite build",
+    "build": "tsc -b && vite build && vite build --mode installer",
+    "build:installer": "tsc -b && vite build --mode installer",
     "check": "tsc -b",
     "preview": "vite preview"
   },

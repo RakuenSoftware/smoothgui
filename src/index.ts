@@ -5,6 +5,7 @@ import './lib/components/Panel/Panel.scss';
 import './lib/components/LoginPage/LoginPage.scss';
 import './lib/components/AlertsButton/AlertsButton.scss';
 import './lib/components/UserDropdown/UserDropdown.scss';
+import './lib/installer/installer.scss';
 
 // Components
 export { default as AppShell } from './lib/components/AppShell/AppShell';
@@ -52,3 +53,15 @@ export { ApiError, isApiError } from './lib/api/error';
 // Design tokens (for inline styles)
 export { tokens } from './lib/tokens';
 export type { Tokens } from './lib/tokens';
+
+export type {
+  InstallerRequest,
+  InstallerRequestKind,
+  InstallerOption,
+  InstallerRequestPayload,
+  InstallerResponse,
+} from './lib/installer/types';
+export type { InstallerSessionConfig, InstallerSessionState } from './lib/installer/useInstallerSession';
+export { useInstallerSession } from './lib/installer/useInstallerSession';
+export { default as InstallerRequestRenderer } from './lib/installer/RequestRenderer';
+export { default as InstallerFrontend } from './lib/installer/InstallerFrontend';
