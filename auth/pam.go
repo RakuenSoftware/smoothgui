@@ -22,6 +22,12 @@ var (
 	ErrInvalidCredentials = errors.New("invalid credentials")
 	// ErrAuthUnavailable is returned when the PAM stack cannot be reached safely.
 	ErrAuthUnavailable = errors.New("authentication unavailable")
+	// ErrPasswordChangeRequired is returned when the supplied password is
+	// correct but the account requires the password to be changed before use
+	// (e.g. an admin-forced expiry via `passwd --expire`). Callers should treat
+	// this as a successful authentication that must be followed by a password
+	// change, NOT as an auth failure.
+	ErrPasswordChangeRequired = errors.New("password change required")
 
 	currentExecutable = os.Executable
 	commandContext    = exec.CommandContext
@@ -30,6 +36,7 @@ var (
 const (
 	pamHelperArg                    = "__pam_auth"
 	pamHelperExitInvalidCredentials = 10
+	pamHelperExitChangeRequired     = 11
 	pamHelperExitUnavailable        = 20
 	pamHelperTimeout                = 5 * time.Second
 )
@@ -89,6 +96,9 @@ func RunPAMHelper(args []string) int {
 
 	if err := pamAuthenticateDirect(service, username, string(password)); err != nil {
 		fmt.Fprintln(os.Stderr, err)
+		if errors.Is(err, ErrPasswordChangeRequired) {
+			return pamHelperExitChangeRequired
+		}
 		if errors.Is(err, ErrInvalidCredentials) {
 			return pamHelperExitInvalidCredentials
 		}
@@ -125,6 +135,14 @@ func pamAuthenticateDirect(service, username, password string) error {
 	}
 
 	if err := tx.AcctMgmt(0); err != nil {
+		// The password was accepted by Authenticate above; a "new auth token
+		// required" / "auth token expired" account result means the credential
+		// is valid but must be rotated (e.g. firstboot `passwd --expire`).
+		// Surface it distinctly so the web UI can force a first-login change
+		// rather than rejecting the (correct) password as invalid.
+		if errors.Is(err, pam.ErrNewAuthtokReqd) || errors.Is(err, pam.ErrAuthtokExpired) {
+			return fmt.Errorf("%w: pam account: %v", ErrPasswordChangeRequired, err)
+		}
 		return classifyPAMError("account", err)
 	}
 
@@ -163,6 +181,11 @@ func classifyPAMHelperResult(runErr error, stderr string, ctxErr error) error {
 				stderr = ErrInvalidCredentials.Error()
 			}
 			return fmt.Errorf("%w: %s", ErrInvalidCredentials, stderr)
+		case pamHelperExitChangeRequired:
+			if stderr == "" {
+				stderr = ErrPasswordChangeRequired.Error()
+			}
+			return fmt.Errorf("%w: %s", ErrPasswordChangeRequired, stderr)
 		case pamHelperExitUnavailable:
 			if stderr == "" {
 				stderr = ErrAuthUnavailable.Error()

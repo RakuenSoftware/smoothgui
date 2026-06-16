@@ -1,19 +1,39 @@
 import { createContext, useContext, useState, useEffect, useRef, useCallback, ReactNode } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { setPasswordChangeRequiredHandler } from '../api/fetch';
+import ForcedPasswordChange from '../components/ForcedPasswordChange/ForcedPasswordChange';
 
 export interface AuthContextValue {
   loggedIn: boolean;
   username: string | null;
+  /** True when the session is valid but the password must be changed first. */
+  mustChange: boolean;
   login: (username: string, password: string) => Promise<void>;
   logout: () => void;
+}
+
+/** Optional shape onLogin may return to signal a forced password change. */
+export interface LoginResult {
+  mustChange?: boolean;
 }
 
 interface AuthProviderProps {
   storagePrefix?: string;
   /** Idle timeout in milliseconds. 0 disables. Default: 0 (disabled). */
   idleTimeoutMs?: number;
-  onLogin: (username: string, password: string) => Promise<void>;
+  /**
+   * Performs the login. Return `{ mustChange: true }` when the credential was
+   * correct but the account must change its password before continuing.
+   */
+  onLogin: (username: string, password: string) => Promise<LoginResult | void>;
   onLogout: () => Promise<void>;
+  /**
+   * Changes the password. Required to support the forced-change flow; when
+   * provided, a blocking change screen is shown while a session is must-change.
+   */
+  onChangePassword?: (currentPassword: string, newPassword: string) => Promise<void>;
+  /** App name shown on the forced password-change screen. */
+  appName?: string;
   children: ReactNode;
 }
 
@@ -26,13 +46,17 @@ export function AuthProvider({
   idleTimeoutMs = 0,
   onLogin,
   onLogout,
+  onChangePassword,
+  appName = 'Settings',
   children,
 }: AuthProviderProps) {
   const sessionKey = `${storagePrefix}_session`;
   const userKey = `${storagePrefix}_user`;
+  const mustChangeKey = `${storagePrefix}_must_change`;
 
   const [loggedIn, setLoggedIn] = useState(() => localStorage.getItem(sessionKey) === 'true');
   const [username, setUsername] = useState<string | null>(() => localStorage.getItem(userKey));
+  const [mustChange, setMustChange] = useState(() => localStorage.getItem(mustChangeKey) === 'true');
   const navigate = useNavigate();
   const timerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
   const loggedInRef = useRef(loggedIn);
@@ -44,10 +68,23 @@ export function AuthProvider({
     onLogout().catch(() => {});
     localStorage.removeItem(sessionKey);
     localStorage.removeItem(userKey);
+    localStorage.removeItem(mustChangeKey);
     setUsername(null);
     setLoggedIn(false);
+    setMustChange(false);
     navigate('/login');
-  }, [onLogout, sessionKey, userKey, navigate]);
+  }, [onLogout, sessionKey, userKey, mustChangeKey, navigate]);
+
+  // Raise the forced-change gate if any request is rejected with
+  // auth.password_change_required — covers sessions discovered mid-flight
+  // (e.g. after a page reload, where login-time state was lost).
+  useEffect(() => {
+    setPasswordChangeRequiredHandler(() => {
+      setMustChange(true);
+      localStorage.setItem(mustChangeKey, 'true');
+    });
+    return () => setPasswordChangeRequiredHandler(null);
+  }, [mustChangeKey]);
 
   // --- idle timeout ---
   const resetTimer = useCallback(() => {
@@ -81,16 +118,33 @@ export function AuthProvider({
   }, [idleTimeoutMs, loggedIn, resetTimer]);
 
   async function login(user: string, password: string): Promise<void> {
-    await onLogin(user, password);
+    const result = await onLogin(user, password);
+    const mc = !!(result && result.mustChange);
     localStorage.setItem(sessionKey, 'true');
     localStorage.setItem(userKey, user);
+    if (mc) localStorage.setItem(mustChangeKey, 'true');
+    else localStorage.removeItem(mustChangeKey);
     setUsername(user);
     setLoggedIn(true);
+    setMustChange(mc);
   }
 
+  const showForcedChange = loggedIn && mustChange && !!onChangePassword;
+
   return (
-    <AuthContext.Provider value={{ loggedIn, username, login, logout: doLogout }}>
-      {children}
+    <AuthContext.Provider value={{ loggedIn, username, mustChange, login, logout: doLogout }}>
+      {showForcedChange ? (
+        <ForcedPasswordChange
+          appName={appName}
+          onChangePassword={onChangePassword!}
+          onComplete={() => {
+            localStorage.removeItem(mustChangeKey);
+            setMustChange(false);
+          }}
+        />
+      ) : (
+        children
+      )}
     </AuthContext.Provider>
   );
 }

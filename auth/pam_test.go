@@ -29,6 +29,20 @@ func TestClassifyPAMHelperResult(t *testing.T) {
 		}
 	})
 
+	t.Run("change required exit", func(t *testing.T) {
+		err := classifyPAMHelperResult(
+			&exec.ExitError{ProcessState: newExitedProcessState(t, pamHelperExitChangeRequired)},
+			"pam account: new authentication token required",
+			nil,
+		)
+		if !errors.Is(err, ErrPasswordChangeRequired) {
+			t.Fatalf("expected password-change-required error, got %v", err)
+		}
+		if errors.Is(err, ErrInvalidCredentials) {
+			t.Fatalf("change-required must not be classified as invalid credentials: %v", err)
+		}
+	})
+
 	t.Run("helper unavailable exit", func(t *testing.T) {
 		err := classifyPAMHelperResult(
 			&exec.ExitError{ProcessState: newExitedProcessState(t, pamHelperExitUnavailable)},

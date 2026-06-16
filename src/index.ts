@@ -20,6 +20,8 @@ export { default as Spinner } from './lib/components/Spinner/Spinner';
 export { default as Toast } from './lib/components/Toast/Toast';
 export { default as LoginPage } from './lib/components/LoginPage/LoginPage';
 export type { LoginPageProps } from './lib/components/LoginPage/LoginPage';
+export { default as ForcedPasswordChange } from './lib/components/ForcedPasswordChange/ForcedPasswordChange';
+export type { ForcedPasswordChangeProps } from './lib/components/ForcedPasswordChange/ForcedPasswordChange';
 export { default as AlertsButton } from './lib/components/AlertsButton/AlertsButton';
 export type { AlertsButtonProps, Alert } from './lib/components/AlertsButton/AlertsButton';
 export { default as UserDropdown } from './lib/components/UserDropdown/UserDropdown';
@@ -27,7 +29,7 @@ export type { UserDropdownProps, UserMenuItem, UserMenuDivider, UserMenuEntry } 
 
 // Contexts
 export { AuthProvider, useAuth } from './lib/contexts/AuthContext';
-export type { AuthContextValue } from './lib/contexts/AuthContext';
+export type { AuthContextValue, LoginResult } from './lib/contexts/AuthContext';
 export { I18nProvider, useI18n, englishTranslations, dutchTranslations } from './lib/contexts/I18nContext';
 export type {
   I18nContextValue,

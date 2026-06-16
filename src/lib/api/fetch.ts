@@ -1,5 +1,25 @@
 import { ApiError } from './error';
 
+// Code returned by the backend (and middleware) when an authenticated session
+// is valid but the account must change its password before doing anything else.
+export const PASSWORD_CHANGE_REQUIRED_CODE = 'auth.password_change_required';
+
+let passwordChangeRequiredHandler: (() => void) | null = null;
+
+// setPasswordChangeRequiredHandler registers a callback invoked whenever any
+// request is rejected with 403 auth.password_change_required. AuthProvider uses
+// this to raise the forced password-change gate even when the condition is
+// discovered mid-session (e.g. after a page reload) rather than at login.
+export function setPasswordChangeRequiredHandler(cb: (() => void) | null): void {
+  passwordChangeRequiredHandler = cb;
+}
+
+function notifyIfPasswordChangeRequired(err: ApiError): void {
+  if (err.status === 403 && err.code === PASSWORD_CHANGE_REQUIRED_CODE) {
+    passwordChangeRequiredHandler?.();
+  }
+}
+
 export async function apiFetch<T = unknown>(method: string, path: string, body?: unknown): Promise<T> {
   const opts: RequestInit = { method, headers: {} };
   if (body !== undefined) {
@@ -8,7 +28,9 @@ export async function apiFetch<T = unknown>(method: string, path: string, body?:
   }
   const res = await fetch(path, opts);
   if (!res.ok) {
-    throw await buildApiError(res);
+    const err = await buildApiError(res);
+    notifyIfPasswordChangeRequired(err);
+    throw err;
   }
   const ct = res.headers.get('content-type') || '';
   if (ct.includes('application/json')) return res.json() as Promise<T>;
@@ -18,7 +40,9 @@ export async function apiFetch<T = unknown>(method: string, path: string, body?:
 export async function apiFetchForm<T = unknown>(method: string, path: string, form: FormData): Promise<T> {
   const res = await fetch(path, { method, body: form });
   if (!res.ok) {
-    throw await buildApiError(res);
+    const err = await buildApiError(res);
+    notifyIfPasswordChangeRequired(err);
+    throw err;
   }
   const ct = res.headers.get('content-type') || '';
   if (ct.includes('application/json')) return res.json() as Promise<T>;
