@@ -23,6 +23,19 @@ func NewSessionStore(db *sql.DB, sessionDuration time.Duration) *SessionStore {
 // CreateSession generates a cryptographically random session token
 // and stores it with the configured expiry duration.
 func (s *SessionStore) CreateSession(username string) (string, error) {
+	return s.createSession(username, false)
+}
+
+// CreateSessionMustChange creates a session that is flagged as requiring a
+// password change. The session authenticates the user, but RequireAuth blocks
+// every request through it except the password-change and logout endpoints
+// until the password is changed (which clears the flag). Used when login
+// succeeds against a correct-but-expired credential.
+func (s *SessionStore) CreateSessionMustChange(username string) (string, error) {
+	return s.createSession(username, true)
+}
+
+func (s *SessionStore) createSession(username string, mustChange bool) (string, error) {
 	tokenBytes := make([]byte, 32) // 256 bits
 	if _, err := rand.Read(tokenBytes); err != nil {
 		return "", fmt.Errorf("generate token: %w", err)
@@ -40,7 +53,43 @@ func (s *SessionStore) CreateSession(username string) (string, error) {
 		return "", fmt.Errorf("insert session: %w", err)
 	}
 
+	if mustChange {
+		if _, err := s.db.Exec(
+			"INSERT OR REPLACE INTO session_must_change (token) VALUES (?)", token,
+		); err != nil {
+			return "", fmt.Errorf("flag session must-change: %w", err)
+		}
+	}
+
 	return token, nil
+}
+
+// SessionMustChange reports whether the session token is flagged as requiring
+// a password change before normal use.
+func (s *SessionStore) SessionMustChange(token string) (bool, error) {
+	var one int
+	err := s.db.QueryRow(
+		"SELECT 1 FROM session_must_change WHERE token = ?", token,
+	).Scan(&one)
+	if errors.Is(err, sql.ErrNoRows) {
+		return false, nil
+	}
+	if err != nil {
+		return false, fmt.Errorf("query must-change: %w", err)
+	}
+	return true, nil
+}
+
+// ClearMustChange removes the must-change flag from every session belonging to
+// the user. Called after a successful password change so the user's existing
+// session(s) become fully usable.
+func (s *SessionStore) ClearMustChange(username string) error {
+	_, err := s.db.Exec(
+		`DELETE FROM session_must_change
+		 WHERE token IN (SELECT token FROM sessions WHERE username = ?)`,
+		username,
+	)
+	return err
 }
 
 // ValidateSession checks if a token is valid and not expired.
@@ -77,12 +126,18 @@ func (s *SessionStore) ValidateSession(token string) (string, error) {
 
 // DeleteSession removes a session (logout).
 func (s *SessionStore) DeleteSession(token string) error {
+	s.db.Exec("DELETE FROM session_must_change WHERE token = ?", token)
 	_, err := s.db.Exec("DELETE FROM sessions WHERE token = ?", token)
 	return err
 }
 
 // DeleteSessionsForUser removes all sessions for a username.
 func (s *SessionStore) DeleteSessionsForUser(username string) error {
+	s.db.Exec(
+		`DELETE FROM session_must_change
+		 WHERE token IN (SELECT token FROM sessions WHERE username = ?)`,
+		username,
+	)
 	_, err := s.db.Exec("DELETE FROM sessions WHERE username = ?", username)
 	return err
 }
@@ -90,6 +145,11 @@ func (s *SessionStore) DeleteSessionsForUser(username string) error {
 // CleanExpiredSessions removes all expired sessions.
 func (s *SessionStore) CleanExpiredSessions() error {
 	now := time.Now().UTC().Format(time.RFC3339)
+	s.db.Exec(
+		`DELETE FROM session_must_change
+		 WHERE token IN (SELECT token FROM sessions WHERE expires_at < ?)`,
+		now,
+	)
 	_, err := s.db.Exec("DELETE FROM sessions WHERE expires_at < ?", now)
 	return err
 }

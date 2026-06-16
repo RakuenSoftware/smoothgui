@@ -79,18 +79,30 @@ func (h *Handler) Login(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
+	mustChange := false
 	if err := PAMAuthenticate(h.pamService, req.Username, req.Password); err != nil {
-		h.rateLimiter.RecordAttempt(ip)
-		if errors.Is(err, ErrAuthUnavailable) {
-			fmt.Printf("auth: PAM unavailable: %v\n", err)
+		// A correct-but-expired password is not a failed login: issue a
+		// must-change session so the client can drive a forced password change.
+		if errors.Is(err, ErrPasswordChangeRequired) {
+			mustChange = true
+		} else {
+			h.rateLimiter.RecordAttempt(ip)
+			if errors.Is(err, ErrAuthUnavailable) {
+				fmt.Printf("auth: PAM unavailable: %v\n", err)
+			}
+			writeJSONErrorCoded(w, "invalid credentials", http.StatusUnauthorized, "auth.invalid_credentials")
+			return
 		}
-		writeJSONErrorCoded(w, "invalid credentials", http.StatusUnauthorized, "auth.invalid_credentials")
-		return
 	}
 
 	h.rateLimiter.ClearAttempts(ip)
 
-	token, err := h.sessions.CreateSession(req.Username)
+	var token string
+	if mustChange {
+		token, err = h.sessions.CreateSessionMustChange(req.Username)
+	} else {
+		token, err = h.sessions.CreateSession(req.Username)
+	}
 	if err != nil {
 		serverError(w, err)
 		return
@@ -110,7 +122,8 @@ func (h *Handler) Login(w http.ResponseWriter, r *http.Request) {
 
 	w.Header().Set("Content-Type", "application/json")
 	json.NewEncoder(w).Encode(map[string]any{
-		"user": user,
+		"user":        user,
+		"must_change": mustChange,
 	})
 }
 
@@ -178,7 +191,11 @@ func (h *Handler) ChangePassword(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	if err := PAMAuthenticate(h.pamService, username, req.CurrentPassword); err != nil {
+	// A correct-but-expired current password (ErrPasswordChangeRequired) is
+	// exactly the case this endpoint exists to resolve, so accept it as a
+	// valid current credential alongside a clean success.
+	if err := PAMAuthenticate(h.pamService, username, req.CurrentPassword); err != nil &&
+		!errors.Is(err, ErrPasswordChangeRequired) {
 		writeJSONErrorCoded(w, "current password is incorrect", http.StatusUnauthorized, "auth.current_password_incorrect")
 		return
 	}
@@ -186,6 +203,12 @@ func (h *Handler) ChangePassword(w http.ResponseWriter, r *http.Request) {
 	if err := SetPassword(username, req.NewPassword); err != nil {
 		serverError(w, err)
 		return
+	}
+
+	// chpasswd resets the password-age, clearing any forced-expiry; drop the
+	// must-change flag so the user's existing session becomes fully usable.
+	if err := h.sessions.ClearMustChange(username); err != nil {
+		fmt.Printf("auth: clear must-change for %s: %v\n", username, err)
 	}
 
 	w.Header().Set("Content-Type", "application/json")

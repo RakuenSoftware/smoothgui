@@ -57,6 +57,50 @@ func TestSessionLifecycle(t *testing.T) {
 	}
 }
 
+func TestMustChangeSessionFlow(t *testing.T) {
+	db := openTestDB(t)
+	sessions := NewSessionStore(db, 24*time.Hour)
+
+	// A normal session is not flagged must-change.
+	normal, err := sessions.CreateSession("alice")
+	if err != nil {
+		t.Fatalf("create session: %v", err)
+	}
+	if mc, err := sessions.SessionMustChange(normal); err != nil || mc {
+		t.Fatalf("normal session must-change=%v err=%v, want false/nil", mc, err)
+	}
+
+	// A must-change session is flagged.
+	token, err := sessions.CreateSessionMustChange("bob")
+	if err != nil {
+		t.Fatalf("create must-change session: %v", err)
+	}
+	if mc, err := sessions.SessionMustChange(token); err != nil || !mc {
+		t.Fatalf("must-change session flag=%v err=%v, want true/nil", mc, err)
+	}
+	// It still authenticates as a valid session.
+	if u, err := sessions.ValidateSession(token); err != nil || u != "bob" {
+		t.Fatalf("validate must-change session: u=%q err=%v", u, err)
+	}
+
+	// Clearing the flag (after a password change) makes it a normal session.
+	if err := sessions.ClearMustChange("bob"); err != nil {
+		t.Fatalf("clear must-change: %v", err)
+	}
+	if mc, err := sessions.SessionMustChange(token); err != nil || mc {
+		t.Fatalf("after clear, must-change=%v err=%v, want false/nil", mc, err)
+	}
+
+	// Deleting a must-change session also clears its flag (no orphan row).
+	token2, _ := sessions.CreateSessionMustChange("carol")
+	if err := sessions.DeleteSession(token2); err != nil {
+		t.Fatalf("delete session: %v", err)
+	}
+	if mc, err := sessions.SessionMustChange(token2); err != nil || mc {
+		t.Fatalf("deleted session must-change=%v err=%v, want false/nil", mc, err)
+	}
+}
+
 func TestDeleteSessionsForUser(t *testing.T) {
 	db := openTestDB(t)
 	sessions := NewSessionStore(db, 24*time.Hour)
