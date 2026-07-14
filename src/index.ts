@@ -16,6 +16,14 @@ export { default as ConfirmDialog } from './lib/components/ConfirmDialog/Confirm
 export type { ConfirmDialogProps } from './lib/components/ConfirmDialog/ConfirmDialog';
 export { default as Panel } from './lib/components/Panel/Panel';
 export type { PanelProps } from './lib/components/Panel/Panel';
+export { default as Tabs } from './lib/components/Tabs/Tabs';
+export type { TabsProps, TabOption } from './lib/components/Tabs/Tabs';
+export { default as Drawer } from './lib/components/Drawer/Drawer';
+export type { DrawerProps } from './lib/components/Drawer/Drawer';
+export { default as Picker } from './lib/components/Picker/Picker';
+export type { PickerProps, PickerOption } from './lib/components/Picker/Picker';
+export { default as SettingsMenu } from './lib/components/SettingsMenu/SettingsMenu';
+export type { SettingField, SettingsMenuProps } from './lib/components/SettingsMenu/SettingsMenu';
 export { default as Spinner } from './lib/components/Spinner/Spinner';
 export { default as Toast } from './lib/components/Toast/Toast';
 export { default as LoginPage } from './lib/components/LoginPage/LoginPage';
