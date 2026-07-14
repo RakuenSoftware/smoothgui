@@ -1,6 +1,6 @@
 import { createContext, useContext, useState, useEffect, useRef, useCallback, ReactNode } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { setPasswordChangeRequiredHandler } from '../api/fetch';
+import { setPasswordChangeRequiredHandler, setUnauthorizedHandler } from '../api/fetch';
 import ForcedPasswordChange from '../components/ForcedPasswordChange/ForcedPasswordChange';
 
 export interface AuthContextValue {
@@ -85,6 +85,18 @@ export function AuthProvider({
     });
     return () => setPasswordChangeRequiredHandler(null);
   }, [mustChangeKey]);
+
+  // Drop client auth state when the server rejects the session (401): the
+  // localStorage "logged in" flag can outlive the cookie — session expiry, a
+  // server reinstall — and without this every view renders permanently empty.
+  // Guarded on loggedInRef so a 401 from a failed login attempt (where we are
+  // not logged in) doesn't trigger a spurious logout round-trip.
+  useEffect(() => {
+    setUnauthorizedHandler(() => {
+      if (loggedInRef.current) doLogout();
+    });
+    return () => setUnauthorizedHandler(null);
+  }, [doLogout]);
 
   // --- idle timeout ---
   const resetTimer = useCallback(() => {
