@@ -20,6 +20,23 @@ function notifyIfPasswordChangeRequired(err: ApiError): void {
   }
 }
 
+let unauthorizedHandler: (() => void) | null = null;
+
+// setUnauthorizedHandler registers a callback invoked whenever any request is
+// rejected with 401. AuthProvider uses this to drop client-side auth state and
+// return to the login screen when the server no longer recognises the session
+// (expired, server reinstalled, cookie cleared) — otherwise the app renders
+// with stale localStorage "logged in" state and every view is silently empty.
+export function setUnauthorizedHandler(cb: (() => void) | null): void {
+  unauthorizedHandler = cb;
+}
+
+function notifyIfUnauthorized(err: ApiError): void {
+  if (err.status === 401) {
+    unauthorizedHandler?.();
+  }
+}
+
 export async function apiFetch<T = unknown>(method: string, path: string, body?: unknown): Promise<T> {
   const opts: RequestInit = { method, headers: {} };
   if (body !== undefined) {
@@ -30,6 +47,7 @@ export async function apiFetch<T = unknown>(method: string, path: string, body?:
   if (!res.ok) {
     const err = await buildApiError(res);
     notifyIfPasswordChangeRequired(err);
+    notifyIfUnauthorized(err);
     throw err;
   }
   const ct = res.headers.get('content-type') || '';
@@ -42,6 +60,7 @@ export async function apiFetchForm<T = unknown>(method: string, path: string, fo
   if (!res.ok) {
     const err = await buildApiError(res);
     notifyIfPasswordChangeRequired(err);
+    notifyIfUnauthorized(err);
     throw err;
   }
   const ct = res.headers.get('content-type') || '';
