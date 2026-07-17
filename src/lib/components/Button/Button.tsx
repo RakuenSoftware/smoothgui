@@ -9,6 +9,9 @@ export interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   size?: ButtonSize;
   /** Dims + disables the button while an action is in flight. */
   loading?: boolean;
+  /** Marks the button busy (sets aria-busy) WITHOUT disabling it — for actions
+   * that must stay interactive while in flight (e.g. click-to-cancel/steer). */
+  busy?: boolean;
 }
 
 const PALETTE: Record<ButtonVariant, { bg: string; color: string; border: string }> = {
@@ -25,21 +28,23 @@ export default function Button({
   variant = 'default',
   size = 'md',
   loading = false,
+  busy = false,
   disabled,
   style,
   children,
+  'aria-busy': ariaBusy,
   ...rest
 }: ButtonProps) {
   const p = PALETTE[variant];
   const pad = size === 'sm' ? '2px 8px' : '5px 12px';
   const fs = size === 'sm' ? 12 : 13;
-  const isDisabled = disabled || loading;
+  const isDisabled = disabled || loading;  // `busy` intentionally does not disable
   return (
     <button
       {...rest}
       type={rest.type ?? 'button'}
       disabled={isDisabled}
-      aria-busy={loading || undefined}
+      aria-busy={loading || busy || ariaBusy || undefined}
       style={{
         padding: pad,
         fontSize: fs,

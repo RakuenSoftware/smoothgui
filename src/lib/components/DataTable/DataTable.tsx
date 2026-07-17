@@ -78,6 +78,10 @@ export default function DataTable<Row>({
               key={rowKey(row, i)}
               onClick={onRowClick ? () => onRowClick(row, i) : undefined}
               style={onRowClick ? { cursor: 'pointer' } : undefined}
+              onMouseEnter={
+                onRowClick ? (e) => (e.currentTarget.style.background = tokens.surfaceHover) : undefined
+              }
+              onMouseLeave={onRowClick ? (e) => (e.currentTarget.style.background = '') : undefined}
             >
               {columns.map((c) => (
                 <td key={c.key} style={tdStyle(c)}>

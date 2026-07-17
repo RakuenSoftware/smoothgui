@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import {
   Button,
+  Drawer,
   InlineStatus,
   EmptyState,
   Field,
@@ -61,6 +62,7 @@ export default function NewComponentsDemo() {
   const [on, setOn] = useState(true);
   const [roles, setRoles] = useState<string[]>(['admin']);
   const [modalOpen, setModalOpen] = useState(false);
+  const [drawerOpen, setDrawerOpen] = useState(false);
   const [wizardOpen, setWizardOpen] = useState(false);
   const seen = useSeenState('demo_coachmark_seen');
 
@@ -82,6 +84,7 @@ export default function NewComponentsDemo() {
             <Button size="sm" onClick={() => seen.resetAll()}>Reset tours</Button>
             <Button variant="primary" size="sm" onClick={() => setModalOpen(true)}>Open modal</Button>
             <Button variant="ghost" size="sm" onClick={() => setWizardOpen(true)}>Open wizard</Button>
+            <Button size="sm" busy>Working…</Button>
           </>
         }
         status={<InlineStatus status={{ kind: 'ok', msg: 'All good' }} />}
@@ -112,6 +115,19 @@ export default function NewComponentsDemo() {
       <ErrorBoundary label="demo table">
         <DataTable columns={COLUMNS} rows={ROWS} rowKey={(r) => r.name} onRowClick={(r) => console.log(r)} empty={<EmptyState message="No rows" />} />
       </ErrorBoundary>
+
+      <div style={{ position: 'relative', height: 160, border: '1px solid #eee', borderRadius: 6 }}>
+        <Drawer
+          open={drawerOpen}
+          onToggle={() => setDrawerOpen((o) => !o)}
+          title="Rules"
+          badge={ROWS.length}
+          alert={<span style={{ color: '#e65100', fontWeight: 600 }}>2 pending</span>}
+          subtitle="epoch 7"
+        >
+          <div>Drawer body content.</div>
+        </Drawer>
+      </div>
 
       <EmptyState message="Nothing here yet" icon="📭" action={<Button size="sm">Create one</Button>} />
 

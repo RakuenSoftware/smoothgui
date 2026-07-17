@@ -10,6 +10,11 @@ export interface DrawerProps {
   closedLabel?: string;
   /** Optional badge on the toggle button (e.g. an item count). */
   badge?: number | string;
+  /** Optional attention slot on the toggle button, after the badge (e.g. a
+   * warning like "3 pending"). Rendered as-is so the caller controls styling. */
+  alert?: ReactNode;
+  /** Optional secondary text shown next to the title in the open header. */
+  subtitle?: ReactNode;
   /** Which edge the drawer docks to (default "right"). */
   side?: 'left' | 'right';
   width?: number;
@@ -26,6 +31,8 @@ export default function Drawer({
   title,
   closedLabel,
   badge,
+  alert,
+  subtitle,
   side = 'right',
   width = 320,
   children,
@@ -54,6 +61,7 @@ export default function Drawer({
         {badge !== undefined && badge !== '' && (
           <span style={{ marginLeft: 4, color: tokens.textPale }}>({badge})</span>
         )}
+        {alert !== undefined && alert !== '' && <span style={{ marginLeft: 4 }}>{alert}</span>}
       </button>
     );
   }
@@ -83,7 +91,14 @@ export default function Drawer({
           borderBottom: `1px solid ${tokens.borderLight}`,
         }}
       >
-        <span style={{ fontWeight: 600, fontSize: 13, color: tokens.text }}>{title}</span>
+        <span style={{ fontWeight: 600, fontSize: 13, color: tokens.text }}>
+          {title}
+          {subtitle !== undefined && subtitle !== '' && (
+            <span style={{ marginLeft: 6, fontWeight: 400, fontSize: 11, color: tokens.textFaint }}>
+              {subtitle}
+            </span>
+          )}
+        </span>
         <button
           onClick={onToggle}
           title="Close"
