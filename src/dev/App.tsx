@@ -6,10 +6,12 @@ import AppShell from '../lib/components/AppShell/AppShell';
 import ConfirmDialog from '../lib/components/ConfirmDialog/ConfirmDialog';
 import Spinner from '../lib/components/Spinner/Spinner';
 import { useState } from 'react';
+import NewComponentsDemo from './NewComponentsDemo';
 
 const NAV_ITEMS = [
   { label: 'Overview', icon: '■', route: '/overview', section: 'Main' },
   { label: 'Settings', icon: '⚙', route: '/settings', section: 'Main' },
+  { label: 'Components', icon: '▣', route: '/components', section: 'Main' },
 ];
 
 function DemoPage() {
@@ -75,6 +77,7 @@ export default function App() {
               <Route path="/" element={<Navigate to="/overview" replace />} />
               <Route path="/overview" element={<DemoPage />} />
               <Route path="/settings" element={<DemoPage />} />
+              <Route path="/components" element={<NewComponentsDemo />} />
             </Route>
           </Routes>
           <Toast />
