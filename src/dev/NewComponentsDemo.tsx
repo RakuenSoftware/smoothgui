@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useRef, useState } from 'react';
 import {
   Button,
   Drawer,
@@ -63,6 +63,8 @@ export default function NewComponentsDemo() {
   const [roles, setRoles] = useState<string[]>(['admin']);
   const [modalOpen, setModalOpen] = useState(false);
   const [drawerOpen, setDrawerOpen] = useState(false);
+  const [composerText, setComposerText] = useState('');
+  const composerRef = useRef<HTMLTextAreaElement>(null);
   const [wizardOpen, setWizardOpen] = useState(false);
   const seen = useSeenState('demo_coachmark_seen');
 
@@ -127,6 +129,11 @@ export default function NewComponentsDemo() {
         >
           <div>Drawer body content.</div>
         </Drawer>
+      </div>
+
+      <div style={{ display: 'flex', gap: 8, alignItems: 'flex-end' }}>
+        <AutoGrowTextarea ref={composerRef} value={composerText} onChange={setComposerText} placeholder="Auto-grow…" style={{ flex: 1 }} />
+        <Button size="sm" onClick={() => composerRef.current?.focus()}>Focus</Button>
       </div>
 
       <EmptyState message="Nothing here yet" icon="📭" action={<Button size="sm">Create one</Button>} />
