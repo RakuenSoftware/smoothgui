@@ -6,6 +6,16 @@ import './lib/components/LoginPage/LoginPage.scss';
 import './lib/components/AlertsButton/AlertsButton.scss';
 import './lib/components/UserDropdown/UserDropdown.scss';
 import './lib/installer/installer.scss';
+import './lib/components/SiteHeader/SiteHeader.scss';
+import './lib/components/SiteFooter/SiteFooter.scss';
+import './lib/components/Hero/Hero.scss';
+import './lib/components/Section/Section.scss';
+import './lib/components/FeatureGrid/FeatureGrid.scss';
+import './lib/components/Card/Card.scss';
+import './lib/components/Prose/Prose.scss';
+import './lib/components/ArticleCard/ArticleCard.scss';
+import './lib/components/CodeBlock/CodeBlock.scss';
+import './lib/components/CallToAction/CallToAction.scss';
 
 // Components
 export { default as AppShell } from './lib/components/AppShell/AppShell';
@@ -115,3 +125,30 @@ export { useSeenState, parseSeen, withSeen } from './lib/components/CoachMark/us
 export type { SeenState } from './lib/components/CoachMark/useSeenState';
 export { default as Wizard } from './lib/components/Wizard/Wizard';
 export type { WizardProps, WizardStep, WizardStepControls, WizardSummaryControls } from './lib/components/Wizard/Wizard';
+
+// ── Site and long-form content primitives (v0.9.0) ───────────────────────────
+// Public, content-led pages: marketing, docs, changelogs, blogs. These pair with
+// the console primitives above rather than replacing them.
+export type { LinkComponent, LinkRenderProps } from './lib/components/linkTypes';
+export { default as SiteHeader } from './lib/components/SiteHeader/SiteHeader';
+export type { SiteHeaderProps, SiteNavItem } from './lib/components/SiteHeader/SiteHeader';
+export { default as SiteFooter } from './lib/components/SiteFooter/SiteFooter';
+export type { SiteFooterProps, SiteFooterGroup, SiteFooterLink } from './lib/components/SiteFooter/SiteFooter';
+export { default as Hero } from './lib/components/Hero/Hero';
+export type { HeroProps, HeroTone } from './lib/components/Hero/Hero';
+export { default as Section } from './lib/components/Section/Section';
+export type { SectionProps, SectionTone, SectionWidth } from './lib/components/Section/Section';
+export { default as FeatureGrid } from './lib/components/FeatureGrid/FeatureGrid';
+export type { FeatureGridProps } from './lib/components/FeatureGrid/FeatureGrid';
+export { default as FeatureCard } from './lib/components/FeatureGrid/FeatureCard';
+export type { FeatureCardProps } from './lib/components/FeatureGrid/FeatureCard';
+export { default as Card } from './lib/components/Card/Card';
+export type { CardProps } from './lib/components/Card/Card';
+export { default as Prose } from './lib/components/Prose/Prose';
+export type { ProseProps } from './lib/components/Prose/Prose';
+export { default as ArticleCard } from './lib/components/ArticleCard/ArticleCard';
+export type { ArticleCardProps } from './lib/components/ArticleCard/ArticleCard';
+export { default as CodeBlock } from './lib/components/CodeBlock/CodeBlock';
+export type { CodeBlockProps } from './lib/components/CodeBlock/CodeBlock';
+export { default as CallToAction } from './lib/components/CallToAction/CallToAction';
+export type { CallToActionProps, CallToActionTone } from './lib/components/CallToAction/CallToAction';

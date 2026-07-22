@@ -1,0 +1,91 @@
+.sg-siteheader {
+  position: sticky;
+  top: 0;
+  z-index: 40;
+  background: var(--sg-dark-surface);
+  border-bottom: 1px solid var(--sg-dark-border);
+}
+
+.sg-siteheader__inner {
+  margin: 0 auto;
+  max-width: var(--sg-content-max);
+  padding: 0 24px;
+  height: 60px;
+  display: flex;
+  align-items: center;
+  gap: 24px;
+}
+
+.sg-siteheader__brand {
+  font-size: 17px;
+  font-weight: 800;
+  letter-spacing: -0.01em;
+  color: var(--sg-on-dark);
+  white-space: nowrap;
+
+  a { color: inherit; text-decoration: none; }
+}
+
+.sg-siteheader__nav {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  margin-left: auto;
+}
+
+.sg-siteheader__link {
+  color: var(--sg-on-dark-muted);
+  text-decoration: none;
+  font-size: 14px;
+  font-weight: 500;
+  padding: 8px 12px;
+  border-radius: 6px;
+
+  &:hover { color: var(--sg-on-dark); text-decoration: none; background: var(--sg-dark-surface-alt); }
+  &:focus-visible { outline: 2px solid var(--sg-primary); outline-offset: 2px; }
+  &--active { color: var(--sg-primary); }
+}
+
+.sg-siteheader__actions {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.sg-siteheader__toggle {
+  display: none;
+  margin-left: auto;
+  background: transparent;
+  border: 1px solid var(--sg-dark-border);
+  border-radius: 6px;
+  color: var(--sg-on-dark);
+  font-size: 16px;
+  line-height: 1;
+  padding: 8px 11px;
+  cursor: pointer;
+
+  &:focus-visible { outline: 2px solid var(--sg-primary); outline-offset: 2px; }
+}
+
+.sg-siteheader__mobile {
+  display: none;
+  border-top: 1px solid var(--sg-dark-border);
+  padding: 8px 16px 16px;
+
+  nav { display: flex; flex-direction: column; }
+  .sg-siteheader__link { padding: 12px 8px; }
+}
+
+.sg-siteheader__mobile-actions {
+  margin-top: 12px;
+  display: flex;
+  gap: 10px;
+}
+
+@media (max-width: 860px) {
+  .sg-siteheader__inner { padding: 0 16px; gap: 12px; }
+  .sg-siteheader__nav,
+  .sg-siteheader__actions { display: none; }
+  .sg-siteheader__toggle { display: inline-flex; }
+  .sg-siteheader__mobile--open { display: block; }
+}

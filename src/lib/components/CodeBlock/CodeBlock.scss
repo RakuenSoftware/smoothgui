@@ -1,0 +1,44 @@
+.sg-codeblock {
+  background: var(--sg-dark-surface);
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.sg-codeblock__bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 8px 12px;
+  background: var(--sg-dark-surface-alt);
+  border-bottom: 1px solid var(--sg-dark-border);
+}
+
+.sg-codeblock__label {
+  font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  font-size: 12px;
+  color: var(--sg-on-dark-muted);
+}
+
+.sg-codeblock__copy {
+  border: 1px solid var(--sg-dark-border);
+  background: transparent;
+  color: var(--sg-on-dark-muted);
+  border-radius: 5px;
+  padding: 3px 10px;
+  font-size: 12px;
+  cursor: pointer;
+
+  &:hover { color: var(--sg-on-dark); border-color: var(--sg-primary); }
+  &:focus-visible { outline: 2px solid var(--sg-primary); outline-offset: 2px; }
+}
+
+.sg-codeblock__pre {
+  margin: 0;
+  padding: 16px;
+  overflow-x: auto;
+  color: var(--sg-on-dark);
+  font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  font-size: 13px;
+  line-height: 1.6;
+}

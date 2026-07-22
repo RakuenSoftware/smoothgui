@@ -56,4 +56,15 @@
   // Misc
   --sg-table-warning-bg: #fff8e1;
   --sg-sidebar-text: #e0e0e0;
+
+  // Dark bands (hero / footer / CTA on marketing + long-form pages)
+  --sg-dark-surface:     #1a1a2e;
+  --sg-dark-surface-alt: #23233f;
+  --sg-on-dark:          #f0f0f5;
+  --sg-on-dark-muted:    #a8a8be;
+  --sg-dark-border:      #2a2a4a;
+
+  // Content layout
+  --sg-content-max:      1120px;
+  --sg-content-narrow:   720px;
 }

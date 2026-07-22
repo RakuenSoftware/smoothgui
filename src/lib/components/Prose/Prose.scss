@@ -1,0 +1,100 @@
+.sg-prose {
+  font-size: 16px;
+  line-height: 1.7;
+  color: var(--sg-text);
+  overflow-wrap: break-word;
+
+  > * + * { margin-top: 1.1em; }
+
+  h1, h2, h3, h4 {
+    line-height: 1.25;
+    font-weight: 700;
+    color: var(--sg-text);
+    margin-top: 1.8em;
+    scroll-margin-top: 80px;
+  }
+  h1 { font-size: 30px; }
+  h2 { font-size: 24px; }
+  h3 { font-size: 19px; }
+  h4 { font-size: 16px; }
+
+  > h1:first-child,
+  > h2:first-child,
+  > h3:first-child { margin-top: 0; }
+
+  a {
+    color: var(--sg-info);
+    text-decoration: underline;
+    &:hover { color: var(--sg-info-dark); }
+  }
+
+  ul, ol { padding-left: 1.4em; }
+  li + li { margin-top: 0.4em; }
+
+  blockquote {
+    border-left: 3px solid var(--sg-primary);
+    padding: 4px 0 4px 16px;
+    color: var(--sg-text-secondary);
+    font-style: italic;
+  }
+
+  code {
+    font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+    font-size: 0.875em;
+    background: var(--sg-surface-sunken);
+    border: 1px solid var(--sg-border-light);
+    border-radius: 4px;
+    padding: 1px 5px;
+  }
+
+  pre {
+    background: var(--sg-dark-surface);
+    color: var(--sg-on-dark);
+    border-radius: 8px;
+    padding: 16px;
+    overflow-x: auto;
+
+    code {
+      background: none;
+      border: none;
+      padding: 0;
+      color: inherit;
+      font-size: 13px;
+    }
+  }
+
+  img {
+    max-width: 100%;
+    height: auto;
+    border-radius: 8px;
+  }
+
+  hr {
+    border: 0;
+    border-top: 1px solid var(--sg-border);
+  }
+
+  // Wide tables scroll inside the prose column rather than widening the page.
+  table {
+    display: block;
+    width: 100%;
+    overflow-x: auto;
+    border-collapse: collapse;
+    font-size: 14px;
+  }
+  th, td {
+    border: 1px solid var(--sg-border);
+    padding: 8px 12px;
+    text-align: left;
+  }
+  th {
+    background: var(--sg-surface-alt);
+    font-weight: 600;
+  }
+}
+
+@media (max-width: 640px) {
+  .sg-prose { font-size: 15px; }
+  .sg-prose h1 { font-size: 25px; }
+  .sg-prose h2 { font-size: 21px; }
+}
