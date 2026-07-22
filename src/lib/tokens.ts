@@ -61,6 +61,17 @@ export const tokens = {
   // Misc
   tableWarningBg: '#fff8e1',
   sidebarText:    '#e0e0e0',
+
+  // Dark bands (hero / footer / CTA on marketing + long-form pages)
+  darkSurface:    '#1a1a2e',
+  darkSurfaceAlt: '#23233f',
+  onDark:         '#f0f0f5',
+  onDarkMuted:    '#a8a8be',
+  darkBorder:     '#2a2a4a',
+
+  // Content layout
+  contentMax:     '1120px',
+  contentNarrow:  '720px',
 } as const;
 
 export type Tokens = typeof tokens;
