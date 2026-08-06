@@ -86,6 +86,18 @@
   --sg-on-dark:          #f0f0f5;
   --sg-on-dark-muted:    #a8a8be;
   --sg-dark-border:      #2a2a4a;
+
+  // Data visualisation. Deliberately not the brand ramp: --sg-primary sits at
+  // OKLCH L 0.773 and only 2:1 against the light surface, so it fails both the
+  // lightness band and the 3:1 contrast floor a data mark has to clear. Each
+  // palette's steps were validated against that palette's own --sg-surface for
+  // lightness, chroma, colour-vision separation and contrast.
+  --sg-chart-1:      #2a78d6;  // primary series, or "this row carries a claim"
+  --sg-chart-2:      #eb6834;  // second series, or the counter-example
+  --sg-chart-muted:  #b0aea7;  // de-emphasised marks
+  --sg-chart-grid:   #e2e1dc;  // hairline gridlines
+  --sg-chart-rule:   #86847d;  // a reference line that means something
+
 }
 
 @mixin dark-palette {
@@ -159,6 +171,15 @@
   --sg-on-dark:          #f0f0f5;
   --sg-on-dark-muted:    #a8a8be;
   --sg-dark-border:      #2b2b4e;
+
+  // Data visualisation. Same hues, stepped for the dark surface and validated
+  // against it — not an automatic flip of the light values.
+  --sg-chart-1:      #3987e5;
+  --sg-chart-2:      #d95926;
+  --sg-chart-muted:  #6b6a64;
+  --sg-chart-grid:   #3c3c68;
+  --sg-chart-rule:   #85859c;
+
 }
 
 :root {
