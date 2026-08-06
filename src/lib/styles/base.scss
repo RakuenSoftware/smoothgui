@@ -97,9 +97,9 @@ a {
   border-radius: 4px;
   cursor: pointer;
   font-size: 13px;
-  &.primary   { background: var(--sg-primary);  color: var(--sg-surface); }
-  &.danger    { background: var(--sg-danger);   color: var(--sg-surface); }
-  &.warning   { background: var(--sg-warning);  color: var(--sg-surface); }
+  &.primary   { background: var(--sg-primary);  color: var(--sg-on-accent); }
+  &.danger    { background: var(--sg-danger);   color: var(--sg-on-accent); }
+  &.warning   { background: var(--sg-warning);  color: var(--sg-on-accent); }
   &.secondary { background: var(--sg-border-light); color: var(--sg-text); }
   &:hover     { opacity: 0.9; }
   &:disabled  { opacity: 0.5; cursor: not-allowed; }

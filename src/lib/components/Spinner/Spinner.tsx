@@ -10,8 +10,8 @@ export default function Spinner({ loading, text = 'Loading...' }: Props) {
       <div className="spinner" />
       {text && <span className="spinner-text">{text}</span>}
       <style>{`
-        .spinner-wrapper { display: flex; align-items: center; gap: 12px; padding: 24px; color: #888; font-size: 14px; }
-        .spinner { width: 24px; height: 24px; border: 3px solid #e0e0e0; border-top-color: #4fc3f7; border-radius: 50%; animation: sp 0.8s linear infinite; }
+        .spinner-wrapper { display: flex; align-items: center; gap: 12px; padding: 24px; color: var(--sg-text-faint); font-size: 14px; }
+        .spinner { width: 24px; height: 24px; border: 3px solid var(--sg-border); border-top-color: var(--sg-primary); border-radius: 50%; animation: sp 0.8s linear infinite; }
         @keyframes sp { to { transform: rotate(360deg); } }
       `}</style>
     </div>

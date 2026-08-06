@@ -16,7 +16,7 @@ export interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
 
 const PALETTE: Record<ButtonVariant, { bg: string; color: string; border: string }> = {
   default: { bg: tokens.surface, color: tokens.textMuted, border: tokens.borderMedium },
-  primary: { bg: tokens.primary, color: tokens.surface, border: tokens.primary },
+  primary: { bg: tokens.primary, color: tokens.onAccent, border: tokens.primary },
   danger: { bg: tokens.dangerBg, color: tokens.dangerDark, border: tokens.danger },
   ghost: { bg: 'transparent', color: tokens.textSecondary, border: tokens.borderLight },
 };
