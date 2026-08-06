@@ -1,0 +1,28 @@
+// Deliberately styled from currentColor and a neutral translucent hover rather
+// than palette tokens: the toggle has to sit both on a light console top bar
+// and on the always-dark band of a SiteHeader, and inheriting the surrounding
+// text colour is what makes it correct in both without a variant prop.
+.sg-theme-toggle {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: transparent;
+  border: 1px solid currentColor;
+  border-radius: 6px;
+  color: inherit;
+  opacity: 0.75;
+  font-size: 15px;
+  line-height: 1;
+  padding: 7px 10px;
+  cursor: pointer;
+
+  &:hover {
+    opacity: 1;
+  }
+
+  &:focus-visible {
+    outline: 2px solid var(--sg-primary);
+    outline-offset: 2px;
+    opacity: 1;
+  }
+}

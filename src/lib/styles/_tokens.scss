@@ -1,8 +1,26 @@
-:root {
+// Design tokens. Mirrored for React inline styles in ../tokens.ts, which
+// references these custom properties by name rather than copying the values —
+// so a token only ever has one definition, here.
+//
+// Theming: the light palette is the default. The dark palette applies when the
+// OS asks for it, unless the page has opted out with data-theme="light", and
+// always when the page sets data-theme="dark". Consumers get dark mode with no
+// JavaScript at all; shipping a toggle (see ThemeToggle) only adds the ability
+// to override the OS.
+
+@mixin light-palette {
+  color-scheme: light;
+
   // Brand / accent
   --sg-primary:      #4fc3f7;
+  --sg-primary-hover:#29b6f6;
   --sg-sidebar-bg:   #1a1a2e;
   --sg-sidebar-hover:#2a2a4a;
+
+  // Foreground for text sitting on a solid accent fill (primary button, alert
+  // badge, active sidebar row). Fixed on both palettes — the fill underneath it
+  // does not lighten in dark mode, so this must not darken either.
+  --sg-on-accent:    #fff;
 
   // Text
   --sg-text:         #333;
@@ -18,6 +36,7 @@
   --sg-surface:      #fff;
   --sg-surface-alt:  #fafafa;
   --sg-surface-hover:#f8f8f8;
+  --sg-surface-active:#f0f0f0;
   --sg-surface-sunken:#f9f9f9;
 
   // Borders
@@ -41,6 +60,7 @@
   // Semantic — danger
   --sg-danger:       #f44336;
   --sg-danger-dark:  #c62828;
+  --sg-danger-light: #ff6b6b;
   --sg-danger-bg:    #ffebee;
 
   // Semantic — info
@@ -57,14 +77,104 @@
   --sg-table-warning-bg: #fff8e1;
   --sg-sidebar-text: #e0e0e0;
 
-  // Dark bands (hero / footer / CTA on marketing + long-form pages)
+  // Dark bands (hero / footer / CTA on marketing + long-form pages, and the
+  // login screen). These are dark in BOTH palettes — they are a deliberate
+  // contrast band, not a themed surface.
   --sg-dark-surface:     #1a1a2e;
   --sg-dark-surface-alt: #23233f;
+  --sg-dark-surface-raised: #16213e;
   --sg-on-dark:          #f0f0f5;
   --sg-on-dark-muted:    #a8a8be;
   --sg-dark-border:      #2a2a4a;
+}
 
-  // Content layout
+@mixin dark-palette {
+  color-scheme: dark;
+
+  // Brand / accent. The accent is legible on both palettes, so it does not
+  // move; its hover state has to brighten rather than darken.
+  --sg-primary:      #4fc3f7;
+  --sg-primary-hover:#81d4fa;
+  --sg-sidebar-bg:   #0e0e20;
+  --sg-sidebar-hover:#26264a;
+  --sg-on-accent:    #fff;
+
+  // Text
+  --sg-text:         #e8e8f0;
+  --sg-text-muted:   #cfcfdd;
+  --sg-text-secondary:#a9a9c0;
+  --sg-text-faint:   #9292a8;
+  --sg-text-hint:    #8b8ba1;
+  --sg-text-pale:    #85859c;
+  --sg-text-nav:     #b0b0c4;
+
+  // Surfaces / backgrounds
+  --sg-bg:           #14142a;
+  --sg-surface:      #1b1b33;
+  --sg-surface-alt:  #23233f;
+  --sg-surface-hover:#26264a;
+  --sg-surface-active:#2b2b52;
+  --sg-surface-sunken:#16162e;
+
+  // Borders
+  --sg-border:       #33335c;
+  --sg-border-light: #2b2b4e;
+  --sg-border-medium:#3c3c68;
+  --sg-border-sidebar:#26264a;
+  --sg-border-subtle:#23233f;
+
+  // Semantic. The *-bg tokens carry tinted text (e.g. success-dark on
+  // success-bg), so on this palette the tint becomes a deep shade and the
+  // "dark" foreground becomes the light one.
+  --sg-success:      #66bb6a;
+  --sg-success-dark: #a5d6a7;
+  --sg-success-bg:   #1b3a1f;
+
+  --sg-warning:      #ffa726;
+  --sg-warning-dark: #ffcc80;
+  --sg-warning-border:#8a5a1a;
+  --sg-warning-bg:   #3d2a12;
+
+  --sg-danger:       #ef5350;
+  --sg-danger-dark:  #ef9a9a;
+  --sg-danger-light: #ff8a80;
+  --sg-danger-bg:    #3d1a1d;
+
+  --sg-info:         #64b5f6;
+  --sg-info-dark:    #90caf9;
+  --sg-info-bg:      #12263d;
+  --sg-info-border:  #2a5580;
+
+  --sg-purple:       #ce93d8;
+  --sg-purple-bg:    #2e1b33;
+
+  --sg-table-warning-bg: #33290f;
+  --sg-sidebar-text: #d8d8e4;
+
+  // Pushed below the page surface so the bands stay distinct once the page
+  // itself is dark.
+  --sg-dark-surface:     #0e0e20;
+  --sg-dark-surface-alt: #17172f;
+  --sg-dark-surface-raised: #16213e;
+  --sg-on-dark:          #f0f0f5;
+  --sg-on-dark-muted:    #a8a8be;
+  --sg-dark-border:      #2b2b4e;
+}
+
+:root {
+  @include light-palette;
+
+  // Content layout — not themed.
   --sg-content-max:      1120px;
   --sg-content-narrow:   720px;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme='light']) {
+    @include dark-palette;
+  }
+}
+
+:root[data-theme='dark'] {
+  @include dark-palette;
 }

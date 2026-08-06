@@ -1,6 +1,6 @@
 .sg-user-name {
   font-size: 13px;
-  color: #666;
+  color: var(--sg-text-secondary);
 }
 
 .sg-user-menu-wrapper {
@@ -12,8 +12,8 @@
   top: 100%;
   right: 0;
   margin-top: 4px;
-  background: #fff;
-  border: 1px solid #e0e0e0;
+  background: var(--sg-surface);
+  border: 1px solid var(--sg-border);
   border-radius: 8px;
   box-shadow: 0 4px 12px rgba(0,0,0,0.1);
   min-width: 200px;
@@ -22,9 +22,9 @@
 
   .sg-dropdown-header {
     padding: 12px 16px;
-    border-bottom: 1px solid #eee;
+    border-bottom: 1px solid var(--sg-border-light);
     font-size: 13px;
-    color: #666;
+    color: var(--sg-text-secondary);
   }
 
   .sg-dropdown-item {
@@ -35,17 +35,17 @@
     background: none;
     border: none;
     font-size: 14px;
-    color: #333;
+    color: var(--sg-text);
     cursor: pointer;
     text-decoration: none;
 
-    &:hover { background: #f5f5f5; }
-    &.danger { color: #f44336; }
+    &:hover { background: var(--sg-bg); }
+    &.danger { color: var(--sg-danger); }
   }
 
   .sg-dropdown-divider {
     height: 1px;
-    background: #eee;
+    background: var(--sg-border-light);
     margin: 4px 0;
   }
 }

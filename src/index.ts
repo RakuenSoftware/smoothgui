@@ -16,6 +16,7 @@ import './lib/components/Prose/Prose.scss';
 import './lib/components/ArticleCard/ArticleCard.scss';
 import './lib/components/CodeBlock/CodeBlock.scss';
 import './lib/components/CallToAction/CallToAction.scss';
+import './lib/components/ThemeToggle/ThemeToggle.scss';
 
 // Components
 export { default as AppShell } from './lib/components/AppShell/AppShell';
@@ -152,3 +153,19 @@ export { default as CodeBlock } from './lib/components/CodeBlock/CodeBlock';
 export type { CodeBlockProps } from './lib/components/CodeBlock/CodeBlock';
 export { default as CallToAction } from './lib/components/CallToAction/CallToAction';
 export type { CallToActionProps, CallToActionTone } from './lib/components/CallToAction/CallToAction';
+export { default as ThemeToggle } from './lib/components/ThemeToggle/ThemeToggle';
+export type { ThemeToggleProps } from './lib/components/ThemeToggle/ThemeToggle';
+
+// Theming
+export {
+  THEME_ATTRIBUTE,
+  THEME_STORAGE_KEY,
+  activeTheme,
+  applyTheme,
+  clearStoredTheme,
+  storeTheme,
+  storedTheme,
+  systemTheme,
+  themePreloadScript,
+} from './lib/theme';
+export type { Theme } from './lib/theme';

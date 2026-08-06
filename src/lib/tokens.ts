@@ -1,77 +1,96 @@
 /**
- * Design tokens mirroring the CSS custom properties in _tokens.scss.
- * Use these in React inline styles to stay consistent with the shared
- * smoothgui look-and-feel — e.g. `color: tokens.primary` instead of '#4fc3f7'.
+ * Design tokens for React inline styles — e.g. `color: tokens.primary` instead
+ * of '#4fc3f7'.
+ *
+ * Each value is a reference to the custom property of the same name in
+ * _tokens.scss, not a copy of its colour. That indirection is what makes
+ * inline-styled components theme-aware: the browser resolves the property
+ * against whichever palette is active, so a component styled with these tokens
+ * follows light and dark without knowing either exists. Hard-coding a hex here
+ * would silently opt that component out of theming.
+ *
+ * These are only valid where the browser resolves custom properties: CSS
+ * property values, including inside shorthand strings like
+ * `1px solid ${tokens.border}`. They will NOT work in SVG presentation
+ * attributes, canvas calls, or anywhere the value is parsed as a colour by
+ * something other than the CSS engine.
  */
 export const tokens = {
   // Brand / accent
-  primary:        '#4fc3f7',
-  sidebarBg:      '#1a1a2e',
-  sidebarHover:   '#2a2a4a',
+  primary:        'var(--sg-primary)',
+  primaryHover:   'var(--sg-primary-hover)',
+  /** Foreground for text on a solid accent fill. Fixed on both palettes. */
+  onAccent:       'var(--sg-on-accent)',
+  sidebarBg:      'var(--sg-sidebar-bg)',
+  sidebarHover:   'var(--sg-sidebar-hover)',
 
   // Text
-  text:           '#333',
-  textMuted:      '#555',
-  textSecondary:  '#666',
-  textFaint:      '#888',
-  textHint:       '#999',
-  textPale:       '#aaa',
-  textNav:        '#b0b0b0',
+  text:           'var(--sg-text)',
+  textMuted:      'var(--sg-text-muted)',
+  textSecondary:  'var(--sg-text-secondary)',
+  textFaint:      'var(--sg-text-faint)',
+  textHint:       'var(--sg-text-hint)',
+  textPale:       'var(--sg-text-pale)',
+  textNav:        'var(--sg-text-nav)',
 
   // Surfaces / backgrounds
-  bg:             '#f5f5f5',
-  surface:        '#fff',
-  surfaceAlt:     '#fafafa',
-  surfaceHover:   '#f8f8f8',
-  surfaceSunken:  '#f9f9f9',
+  bg:             'var(--sg-bg)',
+  surface:        'var(--sg-surface)',
+  surfaceAlt:     'var(--sg-surface-alt)',
+  surfaceHover:   'var(--sg-surface-hover)',
+  surfaceActive:  'var(--sg-surface-active)',
+  surfaceSunken:  'var(--sg-surface-sunken)',
 
   // Borders
-  border:         '#e0e0e0',
-  borderLight:    '#eee',
-  borderMedium:   '#ddd',
-  borderSidebar:  '#2a2a4a',
-  borderSubtle:   '#f5f5f5',
+  border:         'var(--sg-border)',
+  borderLight:    'var(--sg-border-light)',
+  borderMedium:   'var(--sg-border-medium)',
+  borderSidebar:  'var(--sg-border-sidebar)',
+  borderSubtle:   'var(--sg-border-subtle)',
 
   // Semantic — success
-  success:        '#4caf50',
-  successDark:    '#2e7d32',
-  successBg:      '#e8f5e9',
+  success:        'var(--sg-success)',
+  successDark:    'var(--sg-success-dark)',
+  successBg:      'var(--sg-success-bg)',
 
   // Semantic — warning
-  warning:        '#ff9800',
-  warningDark:    '#e65100',
-  warningBorder:  '#ffb74d',
-  warningBg:      '#fff3e0',
+  warning:        'var(--sg-warning)',
+  warningDark:    'var(--sg-warning-dark)',
+  warningBorder:  'var(--sg-warning-border)',
+  warningBg:      'var(--sg-warning-bg)',
 
   // Semantic — danger
-  danger:         '#f44336',
-  dangerDark:     '#c62828',
-  dangerBg:       '#ffebee',
+  danger:         'var(--sg-danger)',
+  dangerDark:     'var(--sg-danger-dark)',
+  dangerLight:    'var(--sg-danger-light)',
+  dangerBg:       'var(--sg-danger-bg)',
 
   // Semantic — info
-  info:           '#1e88e5',
-  infoDark:       '#1565c0',
-  infoBg:         '#e3f2fd',
-  infoBorder:     '#90caf9',
+  info:           'var(--sg-info)',
+  infoDark:       'var(--sg-info-dark)',
+  infoBg:         'var(--sg-info-bg)',
+  infoBorder:     'var(--sg-info-border)',
 
   // Semantic — purple
-  purple:         '#6a1b9a',
-  purpleBg:       '#f3e5f5',
+  purple:         'var(--sg-purple)',
+  purpleBg:       'var(--sg-purple-bg)',
 
   // Misc
-  tableWarningBg: '#fff8e1',
-  sidebarText:    '#e0e0e0',
+  tableWarningBg: 'var(--sg-table-warning-bg)',
+  sidebarText:    'var(--sg-sidebar-text)',
 
-  // Dark bands (hero / footer / CTA on marketing + long-form pages)
-  darkSurface:    '#1a1a2e',
-  darkSurfaceAlt: '#23233f',
-  onDark:         '#f0f0f5',
-  onDarkMuted:    '#a8a8be',
-  darkBorder:     '#2a2a4a',
+  // Dark bands (hero / footer / CTA on marketing + long-form pages, and the
+  // login screen). Dark on both palettes by design.
+  darkSurface:    'var(--sg-dark-surface)',
+  darkSurfaceAlt: 'var(--sg-dark-surface-alt)',
+  darkSurfaceRaised: 'var(--sg-dark-surface-raised)',
+  onDark:         'var(--sg-on-dark)',
+  onDarkMuted:    'var(--sg-on-dark-muted)',
+  darkBorder:     'var(--sg-dark-border)',
 
   // Content layout
-  contentMax:     '1120px',
-  contentNarrow:  '720px',
+  contentMax:     'var(--sg-content-max)',
+  contentNarrow:  'var(--sg-content-narrow)',
 } as const;
 
 export type Tokens = typeof tokens;

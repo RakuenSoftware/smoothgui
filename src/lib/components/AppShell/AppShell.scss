@@ -49,7 +49,7 @@
   font-size: 12px;
   padding: 4px;
 
-  &:hover { color: var(--sg-surface); }
+  &:hover { color: var(--sg-on-accent); }
 }
 
 .nav-sections {
@@ -81,7 +81,7 @@
 
   &:hover {
     background: var(--sg-sidebar-hover);
-    color: var(--sg-surface);
+    color: var(--sg-on-accent);
     text-decoration: none;
   }
 
