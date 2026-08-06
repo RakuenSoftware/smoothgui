@@ -91,6 +91,14 @@ export const tokens = {
   // Content layout
   contentMax:     'var(--sg-content-max)',
   contentNarrow:  'var(--sg-content-narrow)',
+  // Data visualisation — see the note in _tokens.scss. Not the brand ramp:
+  // primary fails the lightness band and the contrast floor for a data mark.
+  chart1:         'var(--sg-chart-1)',
+  chart2:         'var(--sg-chart-2)',
+  chartMuted:     'var(--sg-chart-muted)',
+  chartGrid:      'var(--sg-chart-grid)',
+  chartRule:      'var(--sg-chart-rule)',
+
 } as const;
 
 export type Tokens = typeof tokens;

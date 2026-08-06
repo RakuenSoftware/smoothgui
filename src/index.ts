@@ -16,11 +16,14 @@ import './lib/components/Prose/Prose.scss';
 import './lib/components/ArticleCard/ArticleCard.scss';
 import './lib/components/CodeBlock/CodeBlock.scss';
 import './lib/components/CallToAction/CallToAction.scss';
+import './lib/components/DataFigure/DataFigure.scss';
 import './lib/components/ThemeToggle/ThemeToggle.scss';
 
 // Components
 export { default as AppShell } from './lib/components/AppShell/AppShell';
 export type { NavItem, AppShellProps } from './lib/components/AppShell/AppShell';
+export { default as DataFigure } from './lib/components/DataFigure/DataFigure';
+export type { DataFigureProps } from './lib/components/DataFigure/DataFigure';
 export { default as Badge } from './lib/components/Badge/Badge';
 export type { BadgeProps, BadgeVariant } from './lib/components/Badge/Badge';
 export { default as ConfirmDialog } from './lib/components/ConfirmDialog/ConfirmDialog';
