@@ -1,5 +1,3 @@
-import { tokens } from '../../tokens';
-
 export interface TabOption {
   value: string;
   label: string;
@@ -19,10 +17,8 @@ export interface TabsProps {
 /** A segmented control / tab strip. Generic replacement for ad-hoc pill-button
  * rows (prompt tiers, thread switchers, etc.). */
 export default function Tabs({ options, value, onChange, size = 'md', ariaLabel }: TabsProps) {
-  const pad = size === 'sm' ? '2px 8px' : '4px 12px';
-  const fs = size === 'sm' ? 11 : 13;
   return (
-    <div role="tablist" aria-label={ariaLabel} style={{ display: 'flex', gap: 6, flexWrap: 'wrap' }}>
+    <div role="tablist" aria-label={ariaLabel} className={`sg-tabs sg-tabs--${size}`}>
       {options.map((o) => {
         const active = o.value === value;
         return (
@@ -32,16 +28,7 @@ export default function Tabs({ options, value, onChange, size = 'md', ariaLabel 
             aria-selected={active}
             title={o.title}
             onClick={() => onChange(o.value)}
-            style={{
-              padding: pad,
-              fontSize: fs,
-              fontFamily: 'system-ui',
-              borderRadius: 10,
-              cursor: 'pointer',
-              background: active ? tokens.primary : 'transparent',
-              color: active ? tokens.surface : tokens.textFaint,
-              border: `1px solid ${active ? tokens.primary : tokens.borderLight}`,
-            }}
+            className="sg-tabs__tab"
           >
             {o.label}
           </button>

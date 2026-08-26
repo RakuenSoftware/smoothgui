@@ -42,7 +42,7 @@ export default function AppShell({
             onClick={() => setCollapsed(v => !v)}
             aria-label={t('appShell.toggleSidebar')}
           >
-            {collapsed ? '▶' : '◀'}
+            <span aria-hidden="true">{collapsed ? '›' : '‹'}</span>
           </button>
         </div>
 

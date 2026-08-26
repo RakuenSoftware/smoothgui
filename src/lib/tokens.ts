@@ -1,6 +1,6 @@
 /**
  * Design tokens for React inline styles — e.g. `color: tokens.primary` instead
- * of '#4fc3f7'.
+ * of a hard-coded brand colour.
  *
  * Each value is a reference to the custom property of the same name in
  * _tokens.scss, not a copy of its colour. That indirection is what makes
@@ -91,6 +91,13 @@ export const tokens = {
   // Content layout
   contentMax:     'var(--sg-content-max)',
   contentNarrow:  'var(--sg-content-narrow)',
+  fontSans:       'var(--sg-font-sans)',
+  fontDisplay:    'var(--sg-font-display)',
+  fontMono:       'var(--sg-font-mono)',
+  radiusSm:       'var(--sg-radius-sm)',
+  radiusMd:       'var(--sg-radius-md)',
+  radiusLg:       'var(--sg-radius-lg)',
+  shadowFloat:    'var(--sg-shadow-float)',
   // Data visualisation — see the note in _tokens.scss. Not the brand ramp:
   // primary fails the lightness band and the contrast floor for a data mark.
   chart1:         'var(--sg-chart-1)',

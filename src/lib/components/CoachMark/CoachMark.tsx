@@ -102,16 +102,16 @@ export default function CoachMark({
         zIndex: 25,
         width: 'min(380px, calc(100% - 24px))',
         background: tokens.surface,
-        borderRadius: 10,
+        borderRadius: tokens.radiusMd,
         border: `1px solid ${tokens.borderMedium}`,
-        boxShadow: '0 8px 30px rgba(0,0,0,0.18)',
+        boxShadow: tokens.shadowFloat,
         padding: '16px 18px',
-        fontFamily: 'system-ui',
+        fontFamily: tokens.fontSans,
         color: tokens.textMuted,
       }}
     >
       <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 8 }}>
-        <span style={{ fontSize: 15, fontWeight: 700, color: tokens.text }}>{content.title}</span>
+        <span style={{ fontFamily: tokens.fontDisplay, fontSize: 18, fontWeight: 600, color: tokens.text }}>{content.title}</span>
         <button
           aria-label="Close help"
           title="Close"
@@ -145,7 +145,7 @@ export default function CoachMark({
           onClick={dismiss}
           style={{
             padding: '5px 14px',
-            borderRadius: 6,
+            borderRadius: tokens.radiusSm,
             border: `1px solid ${tokens.borderMedium}`,
             background: tokens.surfaceAlt,
             color: tokens.textMuted,

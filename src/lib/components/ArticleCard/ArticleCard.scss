@@ -1,27 +1,30 @@
 .sg-article {
-  padding: 22px 0;
+  padding: 28px 0;
   border-bottom: 1px solid var(--sg-border-light);
 
   &:last-child { border-bottom: 0; }
 }
 
 .sg-article__meta {
-  font-size: 12px;
+  font-size: 11px;
+  letter-spacing: 0.045em;
+  text-transform: uppercase;
   color: var(--sg-text-faint);
   margin-bottom: 6px;
 }
 
 .sg-article__title {
-  font-size: 20px;
-  font-weight: 700;
-  line-height: 1.3;
+  font-family: var(--sg-font-display);
+  font-size: 24px;
+  font-weight: 600;
+  line-height: 1.2;
 }
 
 .sg-article__link {
   color: var(--sg-text);
   text-decoration: none;
 
-  &:hover { color: var(--sg-info-dark); text-decoration: underline; }
+  &:hover { color: var(--sg-primary); text-decoration: underline; }
   &:focus-visible { outline: 2px solid var(--sg-primary); outline-offset: 2px; }
 }
 

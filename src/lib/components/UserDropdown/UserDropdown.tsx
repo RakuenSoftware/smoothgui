@@ -52,7 +52,12 @@ export default function UserDropdown({
         onClick={toggle}
         title={t('userDropdown.account')}
       >
-        <span className="sg-user-icon">{'\u{1F464}'}</span>
+        <span className="sg-user-icon" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.7">
+            <circle cx="12" cy="8" r="3.5" />
+            <path d="M5 20c.5-4 3-6 7-6s6.5 2 7 6" />
+          </svg>
+        </span>
         <span className="sg-user-name">{username}</span>
       </button>
 

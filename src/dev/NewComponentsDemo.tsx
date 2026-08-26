@@ -20,6 +20,7 @@ import {
   CoachMark,
   Wizard,
   useSeenState,
+  tokens,
   type Column,
   type WizardStep,
 } from '../index';
@@ -110,7 +111,7 @@ export default function NewComponentsDemo() {
         <KeyValue label="Rows" value={ROWS.length} />
       </div>
 
-      <Disclosure summary="Advanced" accent="#4fc3f7">
+      <Disclosure summary="Advanced" accent={tokens.primary}>
         <DiffViewer diff={'@@ -1 +1 @@\n-old\n+new'} />
       </Disclosure>
 

@@ -1,5 +1,5 @@
 .sg-cta {
-  padding: 48px 24px;
+  padding: 64px 24px;
 
   &--dark {
     background: var(--sg-dark-surface);
@@ -18,14 +18,15 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: 32px;
+  gap: 48px;
   flex-wrap: wrap;
 }
 
 .sg-cta__title {
-  font-size: 24px;
-  font-weight: 700;
-  line-height: 1.25;
+  font-family: var(--sg-font-display);
+  font-size: 32px;
+  font-weight: 600;
+  line-height: 1.1;
 }
 
 .sg-cta__description {

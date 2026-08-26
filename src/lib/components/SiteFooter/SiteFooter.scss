@@ -6,7 +6,7 @@
 .sg-sitefooter__inner {
   margin: 0 auto;
   max-width: var(--sg-content-max);
-  padding: 48px 24px;
+  padding: 64px 24px 52px;
   display: grid;
   grid-template-columns: minmax(0, 1.2fr) minmax(0, 2.5fr);
   gap: 40px;
@@ -16,7 +16,7 @@
   font-size: 14px;
   line-height: 1.6;
 
-  strong { color: var(--sg-on-dark); font-size: 16px; }
+  strong { color: var(--sg-on-dark); font-family: var(--sg-font-display); font-size: 19px; font-weight: 600; }
 }
 
 .sg-sitefooter__groups {
@@ -26,9 +26,9 @@
 }
 
 .sg-sitefooter__group-title {
-  font-size: 12px;
+  font-size: 10px;
   font-weight: 700;
-  letter-spacing: 0.06em;
+  letter-spacing: 0.12em;
   text-transform: uppercase;
   color: var(--sg-on-dark);
   margin-bottom: 12px;

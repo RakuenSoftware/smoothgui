@@ -7,8 +7,8 @@
   border: none;
   cursor: pointer;
   padding: 6px 10px;
-  border-radius: 4px;
-  font-size: 18px;
+  border-radius: var(--sg-radius-sm);
+  font-size: 16px;
   color: var(--sg-text-secondary);
   display: flex;
   align-items: center;
@@ -19,13 +19,14 @@
 }
 
 .sg-alerts-btn.has-alerts {
-  .sg-bell-icon { color: var(--sg-warning); animation: sg-pulse 2s infinite; }
+  .sg-bell-icon { color: var(--sg-warning); }
 }
 
-@keyframes sg-pulse {
-  0%, 100% { transform: scale(1); }
-  50% { transform: scale(1.15); }
-}
+.sg-bell-icon,
+.sg-user-icon { display: inline-flex; }
+
+.sg-bell-icon svg,
+.sg-user-icon svg { width: 17px; height: 17px; }
 
 .sg-alert-badge {
   position: absolute;
@@ -52,8 +53,8 @@
   width: 400px;
   background: var(--sg-surface);
   border: 1px solid var(--sg-border);
-  border-radius: 4px;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.12);
+  border-radius: var(--sg-radius-sm);
+  box-shadow: var(--sg-shadow-float);
   max-height: 400px;
   overflow-y: auto;
 
@@ -63,7 +64,7 @@
     justify-content: space-between;
     padding: 12px 16px;
     border-bottom: 1px solid var(--sg-border-light);
-    h3 { margin: 0; font-size: 16px; }
+    h3 { margin: 0; font-family: var(--sg-font-display); font-size: 18px; font-weight: 600; }
   }
 
   .sg-alert-item {
@@ -78,9 +79,10 @@
   }
 
   .sg-alert-severity {
-    font-size: 11px;
+    font-size: 10px;
     text-transform: uppercase;
-    font-weight: 600;
+    font-weight: 700;
+    letter-spacing: 0.07em;
     min-width: 60px;
   }
 
