@@ -1,5 +1,4 @@
 import { ReactNode } from 'react';
-import { tokens } from '../../tokens';
 
 export interface PickerOption {
   value: string;
@@ -31,21 +30,13 @@ export default function Picker({
   error,
 }: PickerProps) {
   return (
-    <div style={{ display: 'flex', flexDirection: 'column', gap: 6 }}>
-      <div style={{ display: 'flex', gap: 8, alignItems: 'center', flexWrap: 'wrap' }}>
-        {label && <span style={{ fontSize: 13, color: tokens.textSecondary }}>{label}</span>}
+    <div className="sg-picker">
+      <div className="sg-picker__row">
+        {label && <span className="sg-picker__label">{label}</span>}
         <select
           value={value}
           onChange={(e) => onChange(e.target.value)}
-          style={{
-            padding: '5px 8px',
-            borderRadius: 4,
-            border: `1px solid ${tokens.borderMedium}`,
-            fontSize: 13,
-            minWidth: 180,
-            background: tokens.surface,
-            color: tokens.text,
-          }}
+          className="sg-picker__select"
         >
           {emptyLabel !== undefined && <option value="">{emptyLabel}</option>}
           {options.map((o) => (
@@ -55,7 +46,7 @@ export default function Picker({
           ))}
         </select>
         {actions}
-        {error && <span style={{ color: tokens.danger, fontSize: 12 }}>{error}</span>}
+        {error && <span className="sg-picker__error">{error}</span>}
       </div>
     </div>
   );

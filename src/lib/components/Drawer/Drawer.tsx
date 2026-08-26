@@ -50,7 +50,7 @@ export default function Drawer({
           zIndex: 10,
           padding: '4px 10px',
           fontSize: 12,
-          borderRadius: 4,
+          borderRadius: tokens.radiusSm,
           cursor: 'pointer',
           border: `1px solid ${tokens.borderMedium}`,
           background: tokens.surfaceAlt,
@@ -79,7 +79,7 @@ export default function Drawer({
         flexDirection: 'column',
         background: tokens.surface,
         [side === 'right' ? 'borderLeft' : 'borderRight']: `1px solid ${tokens.borderMedium}`,
-        boxShadow: '0 0 24px rgba(0,0,0,0.18)',
+        boxShadow: tokens.shadowFloat,
       }}
     >
       <div
@@ -91,7 +91,7 @@ export default function Drawer({
           borderBottom: `1px solid ${tokens.borderLight}`,
         }}
       >
-        <span style={{ fontWeight: 600, fontSize: 13, color: tokens.text }}>
+        <span style={{ fontFamily: tokens.fontDisplay, fontWeight: 600, fontSize: 17, color: tokens.text }}>
           {title}
           {subtitle !== undefined && subtitle !== '' && (
             <span style={{ marginLeft: 6, fontWeight: 400, fontSize: 11, color: tokens.textFaint }}>

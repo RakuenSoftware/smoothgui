@@ -1,6 +1,7 @@
 .sg-codeblock {
   background: var(--sg-dark-surface);
-  border-radius: 8px;
+  border: 1px solid var(--sg-dark-border);
+  border-radius: var(--sg-radius-sm);
   overflow: hidden;
 }
 
@@ -15,7 +16,7 @@
 }
 
 .sg-codeblock__label {
-  font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  font-family: var(--sg-font-mono);
   font-size: 12px;
   color: var(--sg-on-dark-muted);
 }
@@ -24,7 +25,7 @@
   border: 1px solid var(--sg-dark-border);
   background: transparent;
   color: var(--sg-on-dark-muted);
-  border-radius: 5px;
+  border-radius: var(--sg-radius-sm);
   padding: 3px 10px;
   font-size: 12px;
   cursor: pointer;
@@ -38,7 +39,7 @@
   padding: 16px;
   overflow-x: auto;
   color: var(--sg-on-dark);
-  font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  font-family: var(--sg-font-mono);
   font-size: 13px;
   line-height: 1.6;
 }

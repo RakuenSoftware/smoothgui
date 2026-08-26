@@ -3,21 +3,22 @@
   flex-direction: column;
   background: var(--sg-surface);
   border: 1px solid var(--sg-border);
-  border-radius: 10px;
-  padding: 20px;
+  border-radius: 0;
+  padding: 22px 0;
+  border-left: 0;
+  border-right: 0;
   height: 100%;
 }
 
 .sg-card--link {
   color: inherit;
   text-decoration: none;
-  transition: border-color 0.15s ease, box-shadow 0.15s ease, transform 0.15s ease;
+  transition: color 0.15s ease, border-color 0.15s ease;
 
   &:hover {
     text-decoration: none;
     border-color: var(--sg-primary);
-    box-shadow: 0 4px 14px rgba(0, 0, 0, 0.08);
-    transform: translateY(-2px);
+    color: var(--sg-primary);
   }
   &:focus-visible {
     outline: 2px solid var(--sg-primary);
@@ -27,12 +28,13 @@
 
 .sg-card__media {
   margin-bottom: 14px;
-  img { max-width: 100%; height: auto; display: block; border-radius: 6px; }
+  img { max-width: 100%; height: auto; display: block; border-radius: var(--sg-radius-sm); }
 }
 
 .sg-card__title {
-  font-size: 17px;
-  font-weight: 700;
+  font-family: var(--sg-font-display);
+  font-size: 19px;
+  font-weight: 600;
   line-height: 1.3;
   color: var(--sg-text);
 }
@@ -54,5 +56,5 @@
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .sg-card--link { transition: none; &:hover { transform: none; } }
+  .sg-card--link { transition: none; }
 }

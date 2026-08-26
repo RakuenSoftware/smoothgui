@@ -59,10 +59,10 @@ const AutoGrowTextarea = forwardRef<HTMLTextAreaElement, AutoGrowTextareaProps>(
         style={{
           resize: 'none',
           maxHeight,
-          fontFamily: 'system-ui',
+          fontFamily: tokens.fontSans,
           fontSize: 14,
           padding: 10,
-          borderRadius: 6,
+          borderRadius: tokens.radiusSm,
           border: `1px solid ${tokens.borderMedium}`,
           background: tokens.surface,
           color: tokens.text,

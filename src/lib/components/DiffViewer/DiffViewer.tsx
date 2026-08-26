@@ -1,4 +1,5 @@
 import { useMemo } from 'react';
+import { tokens } from '../../tokens';
 
 export interface DiffViewerProps {
   /** A unified diff (git-style) as a single string. */
@@ -29,10 +30,10 @@ export default function DiffViewer({ diff, maxHeight = 300 }: DiffViewerProps) {
       style={{
         margin: 0,
         padding: '8px 10px',
-        background: '#0d1117',
-        borderRadius: 4,
+        background: '#1d1e1b',
+        borderRadius: tokens.radiusSm,
         fontSize: 11,
-        fontFamily: 'ui-monospace, monospace',
+        fontFamily: tokens.fontMono,
         lineHeight: 1.4,
         overflow: 'auto',
         maxHeight,

@@ -86,14 +86,14 @@ export default function InstallerFrontend({
         <StatusPanel status={status!} />
       ) : (
         <div className="sg-installer-shell-idle">
-          <p>Waiting for the install process to send a prompt.</p>
-          {error ? <p className="sg-installer-shell-error">Error: {error}</p> : null}
+          <p>Preparing the next step…</p>
+          {error ? <p className="sg-installer-shell-error">We couldn't continue: {error}</p> : null}
         </div>
       )}
 
       {showIdleHint ? (
         <p className="sg-installer-shell-hint">
-          The installer backend has not written a request yet.
+          The installer will continue here when it needs your input.
         </p>
       ) : null}
     </div>

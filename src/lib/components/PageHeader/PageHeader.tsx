@@ -1,5 +1,4 @@
 import type { ReactNode } from 'react';
-import { tokens } from '../../tokens';
 
 export interface PageHeaderProps {
   title: ReactNode;
@@ -16,19 +15,19 @@ export interface PageHeaderProps {
  * nearly every page hand-assembles. */
 export default function PageHeader({ title, count, actions, status }: PageHeaderProps) {
   return (
-    <div style={{ marginBottom: 12 }}>
-      <div style={{ display: 'flex', alignItems: 'center', gap: 10, flexWrap: 'wrap' }}>
-        <strong style={{ fontSize: 16, color: tokens.text }}>{title}</strong>
+    <div className="sg-page-title">
+      <div className="sg-page-title__row">
+        <strong className="sg-page-title__heading">{title}</strong>
         {count !== undefined && (
-          <span style={{ fontSize: 12, color: tokens.textFaint, fontVariantNumeric: 'tabular-nums' }}>{count}</span>
+          <span className="sg-page-title__count">{count}</span>
         )}
         {actions !== undefined && (
-          <span style={{ marginLeft: 'auto', display: 'flex', alignItems: 'center', gap: 8, flexWrap: 'wrap' }}>
+          <span className="sg-page-title__actions">
             {actions}
           </span>
         )}
       </div>
-      {status !== undefined && <div style={{ marginTop: 4, fontSize: 12, color: tokens.textSecondary }}>{status}</div>}
+      {status !== undefined && <div className="sg-page-title__status">{status}</div>}
     </div>
   );
 }

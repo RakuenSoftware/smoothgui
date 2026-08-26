@@ -118,7 +118,7 @@ export default function Wizard<S = unknown>({
     position: 'fixed',
     inset: 0,
     zIndex: 1000,
-    background: 'rgba(10,10,18,0.55)',
+    background: 'rgba(24, 22, 17, 0.62)',
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'center',
@@ -130,15 +130,15 @@ export default function Wizard<S = unknown>({
     overflow: 'auto',
     background: tokens.surface,
     color: tokens.text,
-    borderRadius: 12,
+    borderRadius: tokens.radiusMd,
     border: `1px solid ${tokens.borderMedium}`,
-    boxShadow: '0 12px 40px rgba(0,0,0,0.3)',
+    boxShadow: tokens.shadowFloat,
     padding: '20px 22px',
-    fontFamily: 'system-ui',
+    fontFamily: tokens.fontSans,
   };
   const ghostBtn: React.CSSProperties = {
     padding: '7px 14px',
-    borderRadius: 7,
+    borderRadius: tokens.radiusSm,
     border: `1px solid ${tokens.borderMedium}`,
     background: tokens.surfaceAlt,
     color: tokens.textMuted,
@@ -147,7 +147,7 @@ export default function Wizard<S = unknown>({
   };
   const primaryBtn: React.CSSProperties = {
     padding: '7px 16px',
-    borderRadius: 7,
+    borderRadius: tokens.radiusSm,
     border: `1px solid ${tokens.primary}`,
     background: tokens.primary,
     color: tokens.surface,
@@ -162,7 +162,7 @@ export default function Wizard<S = unknown>({
     <div style={backdrop} onClick={close}>
       <div style={card} role="dialog" aria-label={title ?? 'Wizard'} onClick={(e) => e.stopPropagation()}>
         <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 6 }}>
-          <strong style={{ fontSize: 17 }}>{title ?? 'Setup'}</strong>
+          <strong style={{ fontFamily: tokens.fontDisplay, fontSize: 20, fontWeight: 600 }}>{title ?? 'Setup'}</strong>
           <button
             aria-label="Close"
             title="Close"
@@ -186,7 +186,7 @@ export default function Wizard<S = unknown>({
             <div style={{ fontSize: 12, color: tokens.textFaint, marginBottom: 4 }}>
               Step {safeIdx + 1} of {total}
             </div>
-            <div style={{ fontSize: 15, fontWeight: 700, marginBottom: 10 }}>
+            <div style={{ fontFamily: tokens.fontDisplay, fontSize: 18, fontWeight: 600, marginBottom: 10 }}>
               {step.title}
               {step.optional ? (
                 <span style={{ color: tokens.textHint, fontWeight: 400, fontSize: 12 }}> · optional</span>

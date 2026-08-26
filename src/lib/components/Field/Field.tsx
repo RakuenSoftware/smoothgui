@@ -1,5 +1,4 @@
 import type { ReactNode } from 'react';
-import { tokens } from '../../tokens';
 
 export interface FieldProps {
   label: string;
@@ -16,18 +15,16 @@ export interface FieldProps {
  * control in a <label> so clicking the caption focuses the input. */
 export default function Field({ label, help, hint, required, children }: FieldProps) {
   return (
-    <label style={{ display: 'block' }}>
-      <div style={{ display: 'flex', alignItems: 'baseline', gap: 6, marginBottom: 3 }}>
-        <span style={{ fontSize: 12.5, fontWeight: 600, color: tokens.textMuted }}>
+    <label className="sg-field">
+      <div className="sg-field__caption">
+        <span className="sg-field__label">
           {label}
-          {required && <span style={{ color: tokens.danger }}> *</span>}
+          {required && <span className="sg-field__required"> *</span>}
         </span>
-        {hint && <span style={{ fontSize: 11, color: tokens.textPale }}>{hint}</span>}
+        {hint && <span className="sg-field__hint">{hint}</span>}
       </div>
       {help && (
-        <div style={{ fontSize: 11.5, color: tokens.textFaint, marginBottom: 4, lineHeight: 1.4 }}>
-          {help}
-        </div>
+        <div className="sg-field__help">{help}</div>
       )}
       {children}
     </label>

@@ -48,7 +48,7 @@ export default function Modal({ open, onClose, title, headerExtra, footer, size 
         position: 'fixed',
         inset: 0,
         zIndex: 1000,
-        background: 'rgba(10,10,18,0.4)',
+        background: 'rgba(24, 22, 17, 0.58)',
         display: 'flex',
         alignItems: 'flex-start',
         justifyContent: 'center',
@@ -63,11 +63,12 @@ export default function Modal({ open, onClose, title, headerExtra, footer, size 
         style={{
           background: tokens.surface,
           color: tokens.text,
-          borderRadius: 8,
+          borderRadius: tokens.radiusMd,
+          border: `1px solid ${tokens.borderMedium}`,
           width: '100%',
           maxWidth: WIDTH[size],
-          boxShadow: '0 12px 40px rgba(0,0,0,0.3)',
-          fontFamily: 'system-ui',
+          boxShadow: tokens.shadowFloat,
+          fontFamily: tokens.fontSans,
         }}
       >
         {(title !== undefined || headerExtra !== undefined) && (
@@ -81,10 +82,10 @@ export default function Modal({ open, onClose, title, headerExtra, footer, size 
               position: 'sticky',
               top: 0,
               background: tokens.surface,
-              borderRadius: '8px 8px 0 0',
+              borderRadius: `${tokens.radiusMd} ${tokens.radiusMd} 0 0`,
             }}
           >
-            {title !== undefined && <strong style={{ fontSize: 15 }}>{title}</strong>}
+            {title !== undefined && <strong style={{ fontFamily: tokens.fontDisplay, fontSize: 18, fontWeight: 600 }}>{title}</strong>}
             {headerExtra}
             <button
               aria-label="Close"
@@ -116,7 +117,7 @@ export default function Modal({ open, onClose, title, headerExtra, footer, size 
               position: 'sticky',
               bottom: 0,
               background: tokens.surface,
-              borderRadius: '0 0 8px 8px',
+              borderRadius: `0 0 ${tokens.radiusMd} ${tokens.radiusMd}`,
             }}
           >
             {footer}

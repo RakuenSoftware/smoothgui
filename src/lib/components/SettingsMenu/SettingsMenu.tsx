@@ -74,7 +74,10 @@ export default function SettingsMenu({
           lineHeight: 1,
         }}
       >
-        ⚙
+        <svg aria-hidden="true" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" strokeWidth="1.7">
+          <circle cx="12" cy="12" r="3" />
+          <path d="M19 12a7 7 0 0 0-.1-1l2-1.5-2-3.4-2.4 1A8 8 0 0 0 14.8 6L14.5 3h-5L9.2 6a8 8 0 0 0-1.7 1.1l-2.4-1-2 3.4 2 1.5a7 7 0 0 0 0 2l-2 1.5 2 3.4 2.4-1A8 8 0 0 0 9.2 18l.3 3h5l.3-3a8 8 0 0 0 1.7-1.1l2.4 1 2-3.4-2-1.5a7 7 0 0 0 .1-1Z" />
+        </svg>
       </button>
       {open && (
         <div
@@ -87,12 +90,12 @@ export default function SettingsMenu({
             zIndex: 50,
             background: tokens.surfaceAlt,
             border: `1px solid ${tokens.borderMedium}`,
-            borderRadius: 8,
+            borderRadius: tokens.radiusMd,
             padding: '12px 14px',
-            boxShadow: '0 8px 24px rgba(0,0,0,0.45)',
+            boxShadow: tokens.shadowFloat,
           }}
         >
-          <div style={{ fontWeight: 600, fontSize: 13, marginBottom: 8, color: tokens.text }}>
+          <div style={{ fontFamily: tokens.fontDisplay, fontWeight: 600, fontSize: 17, marginBottom: 10, color: tokens.text }}>
             {title}
           </div>
           {error && <div style={{ color: tokens.danger, fontSize: 12, marginBottom: 6 }}>{error}</div>}

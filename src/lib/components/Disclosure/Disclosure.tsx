@@ -28,20 +28,15 @@ export default function Disclosure({
   return (
     <details
       open={defaultOpen}
+      className="sg-disclosure"
       style={{
-        margin: '4px 0',
-        padding: '8px 10px',
-        background: tokens.surfaceAlt,
         borderLeft: `3px solid ${accent}`,
-        borderRadius: 4,
-        fontSize: 12,
-        color: tokens.textFaint,
       }}
     >
-      <summary style={{ cursor: 'pointer', color: tokens.textSecondary, userSelect: 'none' }}>{summary}</summary>
+      <summary className="sg-disclosure__summary">{summary}</summary>
       <div
+        className="sg-disclosure__body"
         style={{
-          marginTop: 6,
           ...(maxBodyHeight !== undefined ? { maxHeight: maxBodyHeight, overflowY: 'auto' } : {}),
           ...bodyStyle,
         }}

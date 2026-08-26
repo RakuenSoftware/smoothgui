@@ -1,5 +1,4 @@
 import type { ReactNode } from 'react';
-import { tokens } from '../../tokens';
 
 export interface EmptyStateProps {
   /** The "nothing here yet" message. */
@@ -16,24 +15,13 @@ export interface EmptyStateProps {
  * grey empties scattered across pages. */
 export default function EmptyState({ message, icon, action, inline = false }: EmptyStateProps) {
   if (inline) {
-    return <div style={{ padding: 12, color: tokens.textPale, fontSize: 12 }}>{message}</div>;
+    return <div className="sg-empty sg-empty--inline">{message}</div>;
   }
   return (
-    <div
-      style={{
-        display: 'flex',
-        flexDirection: 'column',
-        alignItems: 'center',
-        gap: 8,
-        padding: '32px 16px',
-        color: tokens.textHint,
-        fontSize: 13,
-        textAlign: 'center',
-      }}
-    >
-      {icon != null && <div style={{ fontSize: 28, lineHeight: 1 }}>{icon}</div>}
-      <div>{message}</div>
-      {action}
+    <div className="sg-empty">
+      {icon != null && <div className="sg-empty__icon">{icon}</div>}
+      <div className="sg-empty__message">{message}</div>
+      {action != null && <div className="sg-empty__action">{action}</div>}
     </div>
   );
 }
