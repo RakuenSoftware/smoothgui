@@ -16,16 +16,6 @@
 .sg-hero__inner {
   margin: 0 auto;
   max-width: var(--sg-content-max);
-  position: relative;
-
-  &::before {
-    content: '';
-    display: block;
-    width: 32px;
-    height: 2px;
-    margin-bottom: 24px;
-    background: var(--sg-primary);
-  }
 
   &--split {
     display: grid;
@@ -33,6 +23,15 @@
     column-gap: clamp(36px, 6vw, 72px);
     align-items: center;
   }
+}
+
+.sg-hero__copy::before {
+  content: '';
+  display: block;
+  width: 32px;
+  height: 2px;
+  margin-bottom: 24px;
+  background: var(--sg-primary);
 }
 
 .sg-hero__eyebrow {
