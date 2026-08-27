@@ -44,6 +44,8 @@
   display: flex;
   gap: 12px;
   flex-wrap: wrap;
+
+  > a { text-decoration: none; }
 }
 
 @media (max-width: 640px) {
