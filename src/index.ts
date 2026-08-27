@@ -171,4 +171,4 @@ export {
   systemTheme,
   themePreloadScript,
 } from './lib/theme';
-export type { Theme } from './lib/theme';
+export type { Theme, ThemeDefault } from './lib/theme';

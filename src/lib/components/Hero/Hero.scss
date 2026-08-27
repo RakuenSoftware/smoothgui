@@ -1,5 +1,6 @@
 .sg-hero {
-  padding: 112px 24px 104px;
+  padding: 82px 24px 88px;
+  border-bottom: 1px solid var(--sg-dark-border);
 
   &--dark {
     background: var(--sg-dark-surface);
@@ -20,9 +21,9 @@
   &::before {
     content: '';
     display: block;
-    width: 44px;
-    height: 3px;
-    margin-bottom: 30px;
+    width: 32px;
+    height: 2px;
+    margin-bottom: 24px;
     background: var(--sg-primary);
   }
 
@@ -35,7 +36,8 @@
 }
 
 .sg-hero__eyebrow {
-  font-size: 11px;
+  font-family: var(--sg-font-mono);
+  font-size: 10px;
   font-weight: 700;
   letter-spacing: 0.14em;
   text-transform: uppercase;
@@ -45,17 +47,18 @@
 
 .sg-hero__title {
   font-family: var(--sg-font-display);
-  font-size: clamp(48px, 6vw, 72px);
-  line-height: 0.98;
-  font-weight: 600;
-  letter-spacing: -0.035em;
+  max-width: 17ch;
+  font-size: clamp(42px, 5vw, 60px);
+  line-height: 1.02;
+  font-weight: 650;
+  letter-spacing: -0.045em;
 }
 
 .sg-hero__subtitle {
-  margin-top: 24px;
-  font-size: 18px;
+  margin-top: 22px;
+  font-size: 17px;
   line-height: 1.65;
-  max-width: 54ch;
+  max-width: 60ch;
 
   .sg-hero--dark & { color: var(--sg-on-dark-muted); }
   .sg-hero--light & { color: var(--sg-text-secondary); }
@@ -71,7 +74,7 @@
 .sg-hero__media { min-width: 0; }
 
 @media (max-width: 860px) {
-  .sg-hero { padding: 72px 16px; }
+  .sg-hero { padding: 64px 16px 68px; }
   .sg-hero__inner--split { grid-template-columns: 1fr; gap: 32px; }
   .sg-hero__title { font-size: clamp(40px, 11vw, 54px); }
   .sg-hero__subtitle { font-size: 16px; }

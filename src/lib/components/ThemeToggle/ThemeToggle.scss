@@ -3,17 +3,18 @@
 // and on the always-dark band of a SiteHeader, and inheriting the surrounding
 // text colour is what makes it correct in both without a variant prop.
 .sg-theme-toggle {
-  display: inline-flex;
+  display: inline-grid;
+  width: 34px;
+  height: 34px;
+  padding: 0;
+  place-items: center;
   align-items: center;
   justify-content: center;
   background: transparent;
   border: 1px solid currentColor;
-  border-radius: 6px;
+  border-radius: var(--sg-radius-sm);
   color: inherit;
   opacity: 0.75;
-  font-size: 15px;
-  line-height: 1;
-  padding: 7px 10px;
   cursor: pointer;
 
   &:hover {
@@ -25,4 +26,9 @@
     outline-offset: 2px;
     opacity: 1;
   }
+}
+
+.sg-theme-toggle svg {
+  width: 16px;
+  height: 16px;
 }
