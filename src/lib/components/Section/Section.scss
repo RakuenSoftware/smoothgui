@@ -1,5 +1,5 @@
 .sg-section {
-  padding: 80px 24px;
+  padding: 92px 24px;
 
   &--default { background: var(--sg-surface); }
   &--muted   { background: var(--sg-bg); }
@@ -18,7 +18,8 @@
 }
 
 .sg-section__header {
-  margin-bottom: 38px;
+  max-width: 760px;
+  margin-bottom: 44px;
 
   &--centered {
     text-align: center;
@@ -29,7 +30,8 @@
 }
 
 .sg-section__eyebrow {
-  font-size: 11px;
+  font-family: var(--sg-font-mono);
+  font-size: 10px;
   font-weight: 700;
   letter-spacing: 0.13em;
   text-transform: uppercase;
@@ -39,16 +41,17 @@
 
 .sg-section__title {
   font-family: var(--sg-font-display);
-  font-size: clamp(30px, 3.6vw, 42px);
+  font-size: clamp(30px, 3.4vw, 44px);
   line-height: 1.08;
-  font-weight: 600;
-  letter-spacing: -0.018em;
+  font-weight: 640;
+  letter-spacing: -0.035em;
   color: inherit;
 }
 
 .sg-section__description {
   margin-top: 12px;
-  font-size: 17px;
+  max-width: 62ch;
+  font-size: 16px;
   line-height: 1.65;
   color: var(--sg-text-secondary);
 
@@ -56,6 +59,6 @@
 }
 
 @media (max-width: 640px) {
-  .sg-section { padding: 56px 16px; }
+  .sg-section { padding: 64px 16px; }
   .sg-section__title { font-size: 24px; }
 }

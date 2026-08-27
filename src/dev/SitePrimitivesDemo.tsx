@@ -14,6 +14,7 @@ import {
   Section,
   SiteFooter,
   SiteHeader,
+  ThemeToggle,
 } from '../index';
 import type { LinkComponent, SiteFooterGroup, SiteNavItem } from '../index';
 
@@ -49,7 +50,7 @@ export default function SitePrimitivesDemo() {
         brand={<a href="/">Example</a>}
         items={NAV}
         activeHref="/blog"
-        actions={<a href="/start">Get started</a>}
+        actions={<><a href="/start">Get started</a><ThemeToggle defaultTheme="dark" storageKey="demo-theme" /></>}
         linkComponent={DemoLink}
       />
 
@@ -70,7 +71,7 @@ export default function SitePrimitivesDemo() {
         centered
         id="why"
       >
-        <FeatureGrid columns={3}>
+        <FeatureGrid columns={3} variant="ruled">
           <FeatureCard icon="⚡" title="Fast" href="/fast" linkComponent={DemoLink}>
             Linked feature cell.
           </FeatureCard>
