@@ -1,5 +1,5 @@
 .sg-section {
-  padding: 92px 24px;
+  padding: 64px 24px;
 
   &--default { background: var(--sg-surface); }
   &--muted   { background: var(--sg-bg); }
@@ -19,7 +19,7 @@
 
 .sg-section__header {
   max-width: 760px;
-  margin-bottom: 44px;
+  margin-bottom: 32px;
 
   &--centered {
     text-align: center;
@@ -59,6 +59,6 @@
 }
 
 @media (max-width: 640px) {
-  .sg-section { padding: 64px 16px; }
+  .sg-section { padding: 48px 16px; }
   .sg-section__title { font-size: 24px; }
 }
