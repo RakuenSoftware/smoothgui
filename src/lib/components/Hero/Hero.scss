@@ -25,15 +25,6 @@
   }
 }
 
-.sg-hero__copy::before {
-  content: '';
-  display: block;
-  width: 32px;
-  height: 2px;
-  margin-bottom: 24px;
-  background: var(--sg-primary);
-}
-
 .sg-hero__eyebrow {
   font-family: var(--sg-font-mono);
   font-size: 10px;
